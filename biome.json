@@ -8,7 +8,7 @@
   "files": {
     "ignoreUnknown": false,
     "ignore": ["node_modules/**/*", ".next/**/*"],
-    "include": ["**/*.{js,ts,tsx,jsx}"]
+    "include": ["app/**/*", "src/**/*"]
   },
   "formatter": {
     "attributePosition": "auto",
