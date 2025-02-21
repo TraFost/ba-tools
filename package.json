@@ -5,7 +5,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "biome lint .",
-		"format": "biome check --fix --unsafe"
+		"format": "biome check --fix --unsafe",
+		"postinstall": "chmod +x .git/hooks/pre-commit"
 	},
 	"dependencies": {
 		"@radix-ui/react-slot": "^1.1.2",
