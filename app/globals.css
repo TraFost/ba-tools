@@ -58,13 +58,4 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
   }
-  @layer base {
-    * {
-      @apply border-[hsl(var(--border))];
-    }
-    body {
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-    }
-  }
 }
