@@ -44,23 +44,21 @@ Blue Archive Tools
 🛠️ Tech Stack
 --------------
 
--   **Next.js** (latest)
+-   **Next.js 15**
 
 -   **React 18**
 
--   **Turbopack** for faster builds
+-   **Turbopack**
 
--   **Tailwind CSS** for styling
+-   **Tailwind CSS** 
 
--   **ShadCN/UI** with the New York style
+-   **ShadCN/UI**
 
--   **Radix UI** for accessible components
+-   **Radix UI**
 
--   **Lucide Icons**
+-   **Vitest**
 
--   **Vitest** for testing
-
--   **Biome** for linting and formatting
+-   **Biome**
 
 * * * * *
 
@@ -126,13 +124,6 @@ npm run format
 
 * * * * *
 
-🌐 Deployment
--------------
-
-This project can be easily deployed to Vercel:
-
-* * * * *
-
 ⚙️ Configuration
 ----------------
 
@@ -154,10 +145,3 @@ Testing environment is set up using `vitest.config.mts`.
 ------------------
 
 Blue Archive Tools is ideal for fans of the game, content creators, and anyone interested in exploring creative possibilities within the Blue Archive universe. Whether for fun, content creation, or fan engagement, the app offers tools to bring imagination to life.
-
-* * * * *
-
-📝 License
-----------
-
-This project is licensed under the MIT License.
