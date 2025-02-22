@@ -1,25 +1,163 @@
-# Next.js + Turbopack
+Blue Archive Tools
+==================
 
-This example allows you to get started with `next dev --turbo` quicky.
+**Blue Archive Tools** is a web application designed to provide fans of Blue Archive with a suite of creative and interactive tools. The app offers an immersive experience with a clean and vibrant design, reflecting the aesthetic of the game. Users can explore various features such as the **Dialog Maker**, **Momotalk**, and **Music** sections, each providing unique and engaging utilities for fans to enjoy😎
 
-## Deploy your own
+* * * * *
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-turbopack&project-name=with-turbopack&repository-name=with-turbopack)
+🚀 Quick Start
+--------------
 
-## How to use
+1.  **Clone the repository.**
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+    ```bash
+    git clone
+    ```
 
-```bash
-npx create-next-app --example with-turbopack with-turbopack-app
+2.  **Install dependencies.**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Start the development server.**
+
+    ```bash
+    npm run dev
+    ```
+
+4.  **Open the browser and visit `http://localhost:3000`.**
+
+* * * * *
+
+🛠️ Features
+------------
+
+-   **Dialog Maker:** Create custom dialogues in the style of Blue Archive, perfect for fan fiction, roleplay, or storytelling.
+
+-   **Momotalk:** Simulate in-game chat scenarios with your favorite characters, adding a layer of interactivity to your creations.
+
+-   **Music:** Access and explore a curated selection of in-game music to enhance your projects or enjoy casually.
+
+* * * * *
+
+🛠️ Tech Stack
+--------------
+
+-   **Next.js** (latest)
+
+-   **React 18**
+
+-   **Turbopack** for faster builds
+
+-   **Tailwind CSS** for styling
+
+-   **ShadCN/UI** with the New York style
+
+-   **Radix UI** for accessible components
+
+-   **Lucide Icons**
+
+-   **Vitest** for testing
+
+-   **Biome** for linting and formatting
+
+* * * * *
+
+📂 Project Structure
+--------------------
+
+```
+├── app
+│   ├── components      # UI components
+│   ├── hooks           # Custom hooks
+│   ├── lib             # Utility functions
+│   ├── styles          # Global CSS
+│   ├── tests           # Integration and unit tests
+│   ├── layout.tsx      # Root layout
+│   ├── pages           # Next.js pages
+│   └── page.tsx        # Main page component
+├── public              # Static files
+├── scripts/hooks       # Git hooks
+└── ...
 ```
 
-```bash
-yarn create next-app --example with-turbopack with-turbopack-app
+* * * * *
+
+🔍 Available Scripts
+--------------------
+
+-   `dev`: Start development server with Turbopack
+
+-   `build`: Build the application
+
+-   `start`: Start the production server
+
+-   `lint`: Run Biome linter
+
+-   `format`: Format code using Biome
+
+-   `test`: Run tests with Vitest
+
+* * * * *
+
+🧪 Testing
+----------
+
+This project uses **Vitest** and **React Testing Library** for testing. The test setup is configured in `app/tests/vitest.setup.ts`.
+
+Run tests with:
+
+```
+npm run test
 ```
 
-```bash
-pnpm create next-app --example with-turbopack with-turbopack-app
+* * * * *
+
+🧹 Code Quality
+---------------
+
+Biome is configured for linting and formatting. It is integrated with Git pre-commit hooks to ensure consistent code quality.
+
+```
+npm run lint
+npm run format
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+* * * * *
+
+🌐 Deployment
+-------------
+
+This project can be easily deployed to Vercel:
+
+* * * * *
+
+⚙️ Configuration
+----------------
+
+### Biome
+
+Biome is used for both linting and formatting, configured in `biome.json` and `.vscode/settings.json`.
+
+### Tailwind CSS
+
+Tailwind configuration is defined in `tailwind.config.js` with extended theme settings and dark mode support.
+
+### Testing
+
+Testing environment is set up using `vitest.config.mts`.
+
+* * * * *
+
+🎯 Target Audience
+------------------
+
+Blue Archive Tools is ideal for fans of the game, content creators, and anyone interested in exploring creative possibilities within the Blue Archive universe. Whether for fun, content creation, or fan engagement, the app offers tools to bring imagination to life.
+
+* * * * *
+
+📝 License
+----------
+
+This project is licensed under the MIT License.
