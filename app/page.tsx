@@ -1,3 +1,3 @@
 export default async function Page() {
-  return <>Blue archive tools here</>;
+  return <div className="size-full flex items-center justify-center">Blue archive tools here</div>;
 }
