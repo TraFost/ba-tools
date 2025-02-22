@@ -28,5 +28,6 @@
 		}
 	},
 	"include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts"],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules"],
+	"types": ["@testing-library/jest-dom/vitest", "./app/tests/vitest.setup.ts"]
 }
