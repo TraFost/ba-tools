@@ -7,7 +7,7 @@
 		"lint": "biome lint .",
 		"format": "biome check --fix --unsafe",
 		"test": "vitest",
-		"postinstall": "cp scripts/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
+		"postinstall": "shx cp scripts/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
 	},
 	"dependencies": {
 		"@radix-ui/react-slot": "^1.1.2",
@@ -33,6 +33,7 @@
 		"@types/react-dom": "18.2.14",
 		"@vitejs/plugin-react": "^4.3.4",
 		"jsdom": "^26.0.0",
+		"shx": "^0.3.4",
 		"typescript": "^5.2.2",
 		"vite-tsconfig-paths": "^5.1.4",
 		"vitest": "^3.0.6"
