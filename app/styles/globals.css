@@ -11,10 +11,10 @@
   --color-input: #d1d5db;
   --color-card: #ffffff;
   --color-card-foreground: #1c1c1c;
-  --color-primary: #1c1c1c;
-  --color-primary-foreground: #fafcff;
-  --color-secondary: #ebf0f7;
-  --color-secondary-foreground: #1c1c1c;
+  --color-primary: #78d8ed;
+  --color-primary-foreground: #33445c;
+  --color-secondary: #d2e4e8;
+  --color-secondary-foreground: #33445c;
   --color-accent: #ebf0f7;
   --color-accent-foreground: #1c1c1c;
   --color-destructive: #ff0000;
@@ -30,6 +30,6 @@
     @apply border-border;
   }
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply antialiased;
   }
 }
