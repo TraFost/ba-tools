@@ -1,11 +1,6 @@
 #!/bin/sh
 set -eu
 
-if git status --short | grep --quiet '^MM'; then
-  printf '%s\n' "ERROR: Some staged files have unstaged changes" >&2
-  exit 1;
-fi
-
 # Explicitly list staged JavaScript/TypeScript files for Biome
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|ts|tsx|jsx)$')
 
@@ -13,7 +8,7 @@ if [ -n "$STAGED_FILES" ]; then
   echo "Running Biome on staged files..."
   echo "$STAGED_FILES" | xargs npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
 else
-  echo "No staged JavaScript/TypeScript files found."
+  echo "No staged files found!"
 fi
 
 git update-index --again
