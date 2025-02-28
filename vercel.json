@@ -1,11 +1,10 @@
 {
 	"rewrites": [{ "source": "/(.*)", "destination": "/404" }],
 	"version": 2,
-	"buildCommand": "pnpm run build",
-	"devCommand": "pnpm run dev",
-	"installCommand": "pnpm ci",
+	"buildCommand": "pnpm build",
+	"devCommand": "pnpm dev",
+	"installCommand": "pnpm install",
 	"framework": "nextjs",
-	"regions": ["all"],
 	"github": {
 		"silent": true,
 		"autoJobCancelation": true
