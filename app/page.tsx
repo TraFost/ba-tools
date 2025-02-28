@@ -27,10 +27,6 @@ export default async function Page() {
       <div className="size-full flex flex-col gap-8 sm:gap-24 px-8 max-sm:pt-12 sm:items-center sm:justify-center">
         <div className="flex flex-col items-center">
           <p className="text-2xl font-bold text-secondary-foreground">Blue Archive Tools</p>
-          {/* <p className="text-lg text-center font-semibold text-accent-foreground">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis quod
-						placeat possimus dolorum nesciunt ab esse eveniet at!
-					</p> */}
           <ul className="flex flex-col gap-y-2">
             {posts.map((post) => (
               <li key={post.id}>{post.name}</li>
