@@ -1,9 +1,9 @@
 {
 	"rewrites": [{ "source": "/(.*)", "destination": "/404" }],
 	"version": 2,
-	"buildCommand": "npm run build",
-	"devCommand": "npm run dev",
-	"installCommand": "npm ci",
+	"buildCommand": "pnpm run build",
+	"devCommand": "pnpm run dev",
+	"installCommand": "pnpm ci",
 	"framework": "nextjs",
 	"regions": ["all"],
 	"github": {
