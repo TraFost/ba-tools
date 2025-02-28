@@ -31,7 +31,16 @@ describe("Home Page", () => {
     const cards = screen.getAllByRole("link");
 
     expect(cards[0]).toHaveAttribute("href", "#");
+    expect(cards[0]).toHaveStyle({ backgroundImage: 'url("/BG.jpg")' });
+
     expect(cards[1]).toHaveAttribute("href", "#");
+    expect(cards[1]).toHaveStyle({
+      backgroundImage: 'url("/BG_HyakkiyakoSquareStreet.jpg")',
+    });
+
     expect(cards[2]).toHaveAttribute("href", "#");
+    expect(cards[2]).toHaveStyle({
+      backgroundImage: 'url("/BG_SchaleOperationRoom.jpg")',
+    });
   });
 });

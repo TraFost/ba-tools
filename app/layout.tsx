@@ -13,11 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main
-          className={`min-h-full h-dvh min-w-full ${open_sans.className} bg-cover bg-center bg-[url(/hexa_back_01.png)]`}
-        >
-          {children}
-        </main>
+        <main className={`min-h-full h-dvh min-w-full ${open_sans.className}`}>{children}</main>
       </body>
     </html>
   );
