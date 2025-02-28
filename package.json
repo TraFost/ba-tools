@@ -7,9 +7,14 @@
 		"lint": "biome lint .",
 		"format": "biome check --fix --unsafe",
 		"test": "vitest",
+		"db:migrate": "prisma db push",
+		"db:prisma-studio": "prisma studio",
+		"db:initiate": "prisma init --datasource-provider sqlite",
+		"db:seed": "pnpm exec tsx ./app/lib/prisma/seed.ts",
 		"postinstall": "shx cp scripts/hooks/pre-commit .git/hooks/pre-commit && shx chmod +x .git/hooks/pre-commit"
 	},
 	"dependencies": {
+		"@prisma/client": "6.4.1",
 		"@radix-ui/react-slot": "^1.1.2",
 		"@tailwindcss/postcss": "^4.0.8",
 		"class-variance-authority": "^0.7.1",
@@ -19,6 +24,7 @@
 		"postcss": "^8.5.3",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"sqlite3": "^5.1.7",
 		"tailwind-merge": "^3.0.1",
 		"tailwindcss": "^4.0.8",
 		"tailwindcss-animate": "^1.0.7"
@@ -33,7 +39,9 @@
 		"@types/react-dom": "18.2.14",
 		"@vitejs/plugin-react": "^4.3.4",
 		"jsdom": "^26.0.0",
+		"prisma": "^6.4.1",
 		"shx": "^0.3.4",
+		"tsx": "^4.19.3",
 		"typescript": "^5.2.2",
 		"vite-tsconfig-paths": "^5.1.4",
 		"vitest": "^3.0.6"
