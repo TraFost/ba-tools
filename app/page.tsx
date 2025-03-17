@@ -12,7 +12,7 @@ interface IFeatures {
 const mainFeatures: IFeatures[] = [
   { url: "#", bgPath: "/BG.jpg", title: "Dialog Maker" },
   {
-    url: "#",
+    url: "/momotalk",
     bgPath: "/BG_HyakkiyakoSquareStreet.jpg",
     title: "Momotalk generator",
   },
