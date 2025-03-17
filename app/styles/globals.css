@@ -3,6 +3,7 @@
 @theme {
   --color-background: #ffffff;
   --color-foreground: #1c1c1c;
+  --color-secondary-background: #4d5b6b;
   --color-muted: #ebf0f7;
   --color-muted-foreground: #6b7280;
   --color-popover: #ffffff;
@@ -15,10 +16,11 @@
   --color-primary-foreground: #33445c;
   --color-secondary: #d2e4e8;
   --color-secondary-foreground: #33445c;
-  --color-accent: #ebf0f7;
-  --color-accent-foreground: #1c1c1c;
+  --color-accent: #4c5b6d;
+  --color-accent-foreground: #8c9597;
   --color-destructive: #ff0000;
   --color-destructive-foreground: #fafcff;
+  --color-momo: #e977a2;
   --color-ring: #9299a8;
   --radius-lg: 0.5rem;
   --radius-md: calc(0.5rem - 2px);
