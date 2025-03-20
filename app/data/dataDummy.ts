@@ -1,256 +1,88 @@
-interface IStudent {
-  icon: string;
-  name: string;
+interface IBase {
+  name?: string;
+  icon?: string;
+}
+
+interface IStudent extends IBase {
   description: string;
 }
 
-interface IChat {
-  icon?: string;
-  name?: string;
+interface IChat extends IBase {
   text: string;
   role: "student" | "sensei";
 }
 
-export const students: IStudent[] = [
+const createStudent = (name: string, description: string, isBunny: boolean): IStudent => ({
+  name,
+  icon: isBunny ? `/${name}_(Bunny_Girl).png` : `/${name}.png`,
+  description,
+});
+
+const createChat = (
+  name: string,
+  text: string,
+  role: "student" | "sensei",
+  isBunny?: boolean,
+): IChat => ({
+  icon: isBunny ? `/${name}_(Bunny_Girl).png` : `/${name}.png`,
+  name,
+  text,
+  role,
+});
+
+const studentData = [
   {
-    icon: "/Ako.png",
     name: "Ako",
     description: "Do not distrub unless its really important.",
+    isBunny: false,
   },
+  { name: "Haruna", description: "EAT OR DIE", isBunny: false },
   {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    description: "EAT OR DIE",
-  },
-  {
-    icon: "/Akane_(Bunny_Girl).png",
     name: "Akane",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    description: "Do not distrub unless its really important.",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    description: "EAT OR DIE",
-  },
-  {
-    icon: "/Akane_(Bunny_Girl).png",
-    name: "Akane",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    description: "Do not distrub unless its really important.",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    description: "EAT OR DIE",
-  },
-  {
-    icon: "/Akane_(Bunny_Girl).png",
-    name: "Akane",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    description: "Do not distrub unless its really important.",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    description: "EAT OR DIE",
-  },
-  {
-    icon: "/Akane_(Bunny_Girl).png",
-    name: "Akane",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    description: "Do not distrub unless its really important.",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    description: "EAT OR DIE",
-  },
-  {
-    icon: "/Akane_(Bunny_Girl).png",
-    name: "Akane",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    description: "Do not distrub unless its really important.",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    description: "EAT OR DIE",
-  },
-  {
-    icon: "/Akane_(Bunny_Girl).png",
-    name: "Akane",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    description: "Do not distrub unless its really important.",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    description: "EAT OR DIE",
-  },
-  {
-    icon: "/Akane_(Bunny_Girl).png",
-    name: "Akane",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    description: "Do not distrub unless its really important.",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    description: "EAT OR DIE",
-  },
-  {
-    icon: "/Akane_(Bunny_Girl).png",
-    name: "Akane",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
+    isBunny: true,
   },
 ];
 
-export const chats: IChat[] = [
+const chatData = [
   {
-    icon: "/Ako.png",
     name: "Ako",
     text: "Lorem ipsum dolor sit amet.",
     role: "student",
+    isBunny: false,
   },
   {
-    icon: "/Ako.png",
     name: "Ako",
     text: "Lorem ipsum dolor sit amet.",
     role: "student",
+    isBunny: false,
   },
   {
-    icon: "/Haruna.png",
     name: "Haruna",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium.",
     role: "student",
+    isBunny: false,
   },
   {
     text: "sensei text",
     role: "sensei",
+    isBunny: false,
   },
   {
-    icon: "/Ako.png",
-    name: "Ako",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
+    name: "Akane",
+    text: "Ihh ada yang ngomongin aku, siapa ya? ippoda itu orangnya :v. akhirnya aku bisa makan nasi goreng.",
     role: "student",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    text: "Lorem ipsum dolor sit amet.",
-    role: "student",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium.",
-    role: "student",
-  },
-  {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget dui finibus, lobortis mauris ac, volutpat augue. Nam euismod eu.",
-    role: "sensei",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    text: "Lorem ipsum dolor sit amet.",
-    role: "student",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    text: "Lorem ipsum dolor sit amet.",
-    role: "student",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium.",
-    role: "student",
-  },
-  {
-    text: "sensei text",
-    role: "sensei",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    text: "Lorem ipsum dolor sit amet.",
-    role: "student",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    text: "Lorem ipsum dolor sit amet.",
-    role: "student",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium.",
-    role: "student",
-  },
-  {
-    text: "sensei text",
-    role: "sensei",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    text: "Lorem ipsum dolor sit amet.",
-    role: "student",
-  },
-  {
-    icon: "/Ako.png",
-    name: "Ako",
-    text: "Lorem ipsum dolor sit amet.",
-    role: "student",
-  },
-  {
-    icon: "/Haruna.png",
-    name: "Haruna",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium.",
-    role: "student",
-  },
-  {
-    text: "sensei text",
-    role: "sensei",
+    isBunny: true,
   },
 ];
+
+export const students: IStudent[] = Array(7)
+  .fill(studentData)
+  .flat()
+  .map(({ name, description, isBunny }) => createStudent(name, description, isBunny));
+
+export const chats: IChat[] = Array(7)
+  .fill(chatData)
+  .flat()
+  .map(({ name, text, role, isBunny }) => createChat(name, text, role, isBunny));

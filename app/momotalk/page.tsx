@@ -45,6 +45,7 @@ const MomotalkPage = () => {
             <ChatInput />
           </section>
         </main>
+
         {/* Mobile */}
         <Tabs defaultValue="students" className="lg:hidden h-[calc(100vh-108px)]">
           <TabsList className="fixed bottom-0 flex bg-accent text-white w-full">
