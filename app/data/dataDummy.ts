@@ -1,6 +1,6 @@
 interface IBase {
   name?: string;
-  icon?: string;
+  image?: string;
 }
 
 interface IStudent extends IBase {
@@ -14,7 +14,7 @@ interface IChat extends IBase {
 
 const createStudent = (name: string, description: string, isBunny: boolean): IStudent => ({
   name,
-  icon: isBunny ? `/${name}_(Bunny_Girl).png` : `/${name}.png`,
+  image: isBunny ? `/${name}_(Bunny_Girl).png` : `/${name}.png`,
   description,
 });
 
@@ -24,7 +24,7 @@ const createChat = (
   role: "student" | "sensei",
   isBunny?: boolean,
 ): IChat => ({
-  icon: isBunny ? `/${name}_(Bunny_Girl).png` : `/${name}.png`,
+  image: isBunny ? `/${name}_(Bunny_Girl).png` : `/${name}.png`,
   name,
   text,
   role,
@@ -86,3 +86,10 @@ export const chats: IChat[] = Array(7)
   .fill(chatData)
   .flat()
   .map(({ name, text, role, isBunny }) => createChat(name, text, role, isBunny));
+
+export const stickers: IBase[] = Array(38)
+  .fill(null)
+  .map((_, i) => ({
+    name: `Sticker ${i + 1}`,
+    image: `/stickers/sticker (${i + 1}).png`,
+  }));

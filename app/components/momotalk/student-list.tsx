@@ -2,19 +2,19 @@ import Image from "next/image";
 import type { FC } from "react";
 
 interface Props {
-  icon: string;
+  image: string;
   name: string;
   description: string;
 }
 
 const StudentList: FC<Props> = (props) => {
-  const { icon, name, description } = props;
+  const { image, name, description } = props;
 
   return (
     <div className="flex items-center gap-4 border-b-[1px] border-accent-foreground px-4 py-2">
       <div className="w-[55px] h-[55px] shrink-0">
         <Image
-          src={icon}
+          src={image}
           alt={name}
           width={55}
           height={55}

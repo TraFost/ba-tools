@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { FC } from "react";
 
 interface Props {
-  icon?: string;
+  image?: string;
   name?: string;
   text: string;
   role: "student" | "sensei";
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ChatBubble: FC<Props> = (props) => {
-  const { icon, name, text, role, isPrevious } = props;
+  const { image, name, text, role, isPrevious } = props;
 
   return (
     <div
@@ -19,7 +19,7 @@ const ChatBubble: FC<Props> = (props) => {
       {role !== "sensei" && !isPrevious ? (
         <div className="w-[55px] h-[55px] shrink-0 self-start mt-2">
           <Image
-            src={icon}
+            src={image}
             alt={name}
             width={55}
             height={55}

@@ -23,7 +23,7 @@ const MomotalkPage = () => {
             {students.map((student, i) => (
               <StudentList
                 key={`${student.name}-${i}`}
-                icon={student.icon}
+                image={student.image}
                 name={student.name}
                 description={student.description}
               />
@@ -35,7 +35,7 @@ const MomotalkPage = () => {
                 <ChatBubble
                   key={`${chat.name}-${i}`}
                   isPrevious={i > 0 && chats[i - 1].name === chat.name}
-                  icon={chat.icon}
+                  image={chat.image}
                   name={chat.name}
                   role={chat.role}
                   text={chat.text}
@@ -56,7 +56,7 @@ const MomotalkPage = () => {
             {students.map((student, i) => (
               <StudentList
                 key={`${student.name}-${i}`}
-                icon={student.icon}
+                image={student.image}
                 name={student.name}
                 description={student.description}
               />
@@ -68,7 +68,7 @@ const MomotalkPage = () => {
                 <ChatBubble
                   key={`${chat.name}-${i}`}
                   isPrevious={i > 0 && chats[i - 1].name === chat.name}
-                  icon={chat.icon}
+                  image={chat.image}
                   name={chat.name}
                   role={chat.role}
                   text={chat.text}
