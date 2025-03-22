@@ -1,5 +1,8 @@
 {
-	"rewrites": [{ "source": "/(.*)", "destination": "/404" }],
+	"rewrites": [
+		{ "source": "/api/(.*)", "destination": "/api/$1" },
+		{ "source": "/((?!api/).*)", "destination": "/404" }
+	],
 	"version": 2,
 	"buildCommand": "prisma generate && pnpm build",
 	"devCommand": "pnpm dev",
