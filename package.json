@@ -16,6 +16,8 @@
 		"postinstall": "shx cp scripts/hooks/pre-commit .git/hooks/pre-commit && shx chmod +x .git/hooks/pre-commit"
 	},
 	"dependencies": {
+		"@libsql/client": "^0.15.0",
+		"@prisma/adapter-libsql": "^6.5.0",
 		"@prisma/client": "6.4.1",
 		"@radix-ui/react-dialog": "^1.1.6",
 		"@radix-ui/react-radio-group": "^1.2.3",
