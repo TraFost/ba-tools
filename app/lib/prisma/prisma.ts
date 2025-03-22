@@ -1,16 +1,49 @@
+import { createClient } from "@libsql/client";
+import { PrismaLibSQL } from "@prisma/adapter-libsql";
 import { PrismaClient } from "@prisma/client";
+import { patchPrisma } from "./prisma-patch";
 
-const prismaClientSingleton = () => {
-  return new PrismaClient();
-};
+function createPrismaClient() {
+  let client: PrismaClient;
 
-// Declare a type for global with our custom property
-declare global {
-  var prismaGlobal: ReturnType<typeof prismaClientSingleton> | undefined;
+  if (process.env.NODE_ENV === "production") {
+    // Create Turso client
+    const tursoClient = createClient({
+      url: process.env.TURSO_DATABASE_URL || "",
+      authToken: process.env.TURSO_AUTH_TOKEN || "",
+    });
+
+    // Create Prisma client with Turso adapter
+    client = new PrismaClient({
+      // @ts-ignore - The adapter option is available when using preview features
+      adapter: new PrismaLibSQL(tursoClient),
+    });
+
+    // Override the $transaction method for Turso compatibility
+    const originalTransaction = client.$transaction;
+    client.$transaction = async function (arg) {
+      if (typeof arg === "function") {
+        // For callback-style transactions, just execute the callback
+        return await arg(client);
+      }
+
+      return await originalTransaction.call(this, arg);
+    };
+  } else {
+    // Use local SQLite in development
+    client = new PrismaClient();
+  }
+
+  // Apply our patch to ensure 'ok' field is always included
+  return patchPrisma(client);
 }
 
-// Use the global variable without shadowing globalThis
-export const prisma = global.prismaGlobal ?? prismaClientSingleton();
+// Use global to maintain a singleton instance
+declare global {
+  var prismaGlobal: ReturnType<typeof createPrismaClient> | undefined;
+}
+
+export const prisma = global.prismaGlobal ?? createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") {
   global.prismaGlobal = prisma;

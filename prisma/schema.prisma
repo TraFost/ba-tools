@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -58,6 +59,7 @@ model Verification {
   id         String   @id @default(cuid())
   identifier String
   value      String   @unique
+  ok         Boolean  @default(true)
   expiresAt  DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
