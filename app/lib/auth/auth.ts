@@ -44,8 +44,6 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
   },
-
-  // Session optimization settings
   session: {
     cookieCache: {
       enabled: true,
