@@ -11,6 +11,14 @@ const nextConfig = {
 		});
 		return config;
 	},
+	async rewrites() {
+		return [
+			{
+				source: "/api/auth/:path*",
+				destination: "/api/auth/:path*",
+			},
+		];
+	},
 };
 
 module.exports = nextConfig;
