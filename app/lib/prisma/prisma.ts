@@ -1,9 +1,11 @@
 import { createClient } from "@libsql/client";
 import { PrismaLibSQL } from "@prisma/adapter-libsql";
-// app/lib/prisma/prisma.ts
 import { PrismaClient } from "@prisma/client";
+import { patchPrisma } from "./prisma-patch";
 
 function createPrismaClient() {
+  let client: PrismaClient;
+
   if (process.env.NODE_ENV === "production") {
     // Create Turso client
     const tursoClient = createClient({
@@ -12,7 +14,7 @@ function createPrismaClient() {
     });
 
     // Create Prisma client with Turso adapter
-    const client = new PrismaClient({
+    client = new PrismaClient({
       // @ts-ignore - The adapter option is available when using preview features
       adapter: new PrismaLibSQL(tursoClient),
     });
@@ -27,12 +29,13 @@ function createPrismaClient() {
 
       return await originalTransaction.call(this, arg);
     };
-
-    return client;
+  } else {
+    // Use local SQLite in development
+    client = new PrismaClient();
   }
 
-  // Use local SQLite in development
-  return new PrismaClient();
+  // Apply our patch to ensure 'ok' field is always included
+  return patchPrisma(client);
 }
 
 // Use global to maintain a singleton instance
