@@ -58,7 +58,6 @@ model Account {
 model Verification {
   id         String   @id @default(cuid())
   identifier String
-  ok         Boolean
   value      String   @unique
   expiresAt  DateTime
   createdAt  DateTime @default(now())
