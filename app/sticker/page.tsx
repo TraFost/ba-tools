@@ -1,6 +1,25 @@
 import StickerWrapper from "components/sticker/sticker-wrapper";
 import { Link } from "components/ui/link";
 import { HomeIcon } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sticker Maker | Blue Archive Tools",
+  icons: "/icon.png",
+  description: "Sticker maker for Blue Archive",
+  keywords: ["Blue Archive", "Blue Archive tools", "sticker maker", "Blue Archive sticker maker"],
+  openGraph: {
+    type: "website",
+    title: "Sticker Maker | Blue Archive Tools",
+    description: "Sticker maker for Blue Archive",
+    url: "https://ba-tools-plum.vercel.app/sticker",
+    images: [
+      {
+        url: "https://ba-tools-plum.vercel.app/icon.png",
+      },
+    ],
+  },
+};
 
 const StickerPage = () => {
   return (
