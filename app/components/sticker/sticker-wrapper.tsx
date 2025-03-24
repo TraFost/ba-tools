@@ -24,15 +24,15 @@ interface Position {
 }
 
 const StickerWrapper = () => {
-  const [text, setText] = useState<string>("Nn~");
+  const [text, setText] = useState<string>("Nn~\n     Nn.");
   const [name, setName] = useState<string>(stickers[0].name);
-  const [color, setColor] = useState<string>("#000000");
+  const [color, setColor] = useState<string>("#ffffff");
   const [orientation, setOrientation] = useState<"horizontal" | "vertical">("horizontal");
   const [fontSize, setFontSize] = useState<number>(64);
   const [position, setPosition] = useState<Position>({ x: 256, y: 128 });
   const [lineH, setLineH] = useState<number>(60);
   const [stroke, setStroke] = useState<number>(10);
-  const [strokeColor, setStrokeColor] = useState<string>("#ffffff");
+  const [strokeColor, setStrokeColor] = useState<string>("#000000");
   const [rotate, setRotate] = useState<number>(-15);
   const [img, setImg] = useState<HTMLImageElement | null>(null);
 
