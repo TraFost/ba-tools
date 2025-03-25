@@ -1,16 +1,13 @@
+import { BASE_URL } from "config/constants";
+import { cn } from "lib/utils";
+import type { Metadata } from "next";
+import { Open_Sans } from "next/font/google";
 import { CommonProviders } from "providers/common-providers";
 
 import "./styles/globals.css";
-import { Balsamiq_Sans, Open_Sans } from "next/font/google";
-import type { Metadata } from "next";
 
 const open_sans = Open_Sans({
   subsets: ["latin"],
-});
-
-const balsamiq_sans = Balsamiq_Sans({
-  subsets: ["latin"],
-  weight: ["700"],
 });
 
 export const metadata: Metadata = {
@@ -22,12 +19,8 @@ export const metadata: Metadata = {
     type: "website",
     title: "Blue Archive Tools",
     description: "Tools for Blue Archive",
-    url: "https://ba-tools-plum.vercel.app/",
-    images: [
-      {
-        url: "https://ba-tools-plum.vercel.app/icon.png",
-      },
-    ],
+    url: BASE_URL,
+    images: [{ url: `${BASE_URL}/icon.png` }],
   },
 };
 
@@ -40,7 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CommonProviders />
-        <main className={`min-h-full h-dvh min-w-full ${open_sans.className}`}>{children}</main>
+        <main className={cn`min-h-full h-dvh min-w-full ${open_sans.className}`}>{children}</main>
       </body>
     </html>
   );
