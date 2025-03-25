@@ -15,6 +15,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "components/ui/radio-group";
 import { Slider } from "components/ui/slider";
 import { Textarea } from "components/ui/textarea";
+import { Checkbox } from "components/ui/checkbox";
 
 import { stickers } from "app/data/dataDummy";
 
@@ -30,11 +31,13 @@ const StickerWrapper = () => {
   const [orientation, setOrientation] = useState<"horizontal" | "vertical">("horizontal");
   const [fontSize, setFontSize] = useState<number>(64);
   const [position, setPosition] = useState<Position>({ x: 256, y: 128 });
-  const [lineH, setLineH] = useState<number>(60);
+  const [lineH, setLineH] = useState<number>(64);
   const [stroke, setStroke] = useState<number>(10);
   const [strokeColor, setStrokeColor] = useState<string>("#000000");
   const [rotate, setRotate] = useState<number>(-15);
   const [img, setImg] = useState<HTMLImageElement | null>(null);
+  const [bgColor, setBgColor] = useState<string>("#000000");
+  const [transparent, setTransparent] = useState<boolean>(true);
 
   useEffect(() => {
     handleSetImage(stickers[0]);
@@ -46,6 +49,9 @@ const StickerWrapper = () => {
     ctx.canvas.width = 512;
     ctx.canvas.height = 512;
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    ctx.fillStyle = transparent ? "rgba(255, 255, 255, 0)" : bgColor;
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     ctx.drawImage(img, 0, 0, 512, 512);
     ctx.font = `${fontSize}px Balsamiq Sans`;
@@ -93,6 +99,8 @@ const StickerWrapper = () => {
     link.href = canvas.toDataURL("image/png");
     link.click();
   };
+
+  console.log(transparent);
 
   return (
     <div className="flex flex-col justify-center items-center gap-2 mx-auto px-4 pt-8 pb-16">
@@ -150,7 +158,31 @@ const StickerWrapper = () => {
           </label>
         </div>
       </div>
-      <div className="w-full max-w-[512px] flex flex-col gap-2">
+      <div className="w-full max-w-[512px] flex flex-col gap-2 mt-2">
+        <div className="w-fit flex gap-4 max-lg:flex-col max-lg:gap-2">
+          <label htmlFor="transparency" className="flex items-center gap-1">
+            <Checkbox
+              id="transparency"
+              onCheckedChange={() => setTransparent(!transparent)}
+              checked={transparent}
+              defaultChecked
+            />
+            <span>Transparent Background</span>
+          </label>
+          {!transparent && (
+            <label htmlFor="bg-color" className="flex items-center gap-2 w-fit">
+              <span>Color: </span>
+              <input
+                type="color"
+                name="bg-color"
+                id="bg-color"
+                value={bgColor}
+                onChange={(e) => setBgColor(e.target.value)}
+                className="size-8"
+              />
+            </label>
+          )}
+        </div>
         <div>
           <label htmlFor="content">
             Text
@@ -169,6 +201,7 @@ const StickerWrapper = () => {
             type="color"
             name="color"
             id="color"
+            className="size-8"
             value={color}
             onChange={(e) => setColor(e.target.value)}
           />
@@ -208,7 +241,7 @@ const StickerWrapper = () => {
               id="line-height"
               step={1}
               min={1}
-              max={100}
+              max={128}
               onValueChange={(val) => setLineH(val[0])}
               value={[lineH]}
             />
@@ -233,6 +266,7 @@ const StickerWrapper = () => {
             type="color"
             name="stroke-color"
             id="stroke-color"
+            className="size-8"
             value={strokeColor}
             onChange={(e) => setStrokeColor(e.target.value)}
           />
