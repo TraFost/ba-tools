@@ -7,5 +7,6 @@ export const env = {
     projectUrl: process.env.SUPABASE_PROJECT_URL,
     apiKey: process.env.SUPABASE_API_KEY,
     dbPassword: process.env.SUPABASE_DB_PASSWORD,
+    callbackUrl: process.env.SUPABASE_CALLBACK_URL,
   },
 } as const;
