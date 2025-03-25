@@ -87,7 +87,7 @@ export const chats: IChat[] = Array(7)
   .flat()
   .map(({ name, text, role, isBunny }) => createChat(name, text, role, isBunny));
 
-export const stickers: IBase[] = Array(38)
+export const stickers: IBase[] = Array(40)
   .fill(null)
   .map((_, i) => ({
     name: `Sticker ${i + 1}`,
