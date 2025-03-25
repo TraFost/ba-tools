@@ -10,6 +10,7 @@
 		"postinstall": "shx cp scripts/hooks/pre-commit .git/hooks/pre-commit && shx chmod +x .git/hooks/pre-commit"
 	},
 	"dependencies": {
+		"@radix-ui/react-checkbox": "^1.1.4",
 		"@radix-ui/react-dialog": "^1.1.6",
 		"@radix-ui/react-radio-group": "^1.2.3",
 		"@radix-ui/react-slider": "^1.2.3",
