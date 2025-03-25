@@ -2,6 +2,7 @@ import { BASE_URL } from "config/constants";
 import { cn } from "lib/utils";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
+import Script from "next/script";
 import { CommonProviders } from "providers/common-providers";
 
 import "./styles/globals.css";
@@ -33,6 +34,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="8a63c405-c348-44bb-8f27-a9b14d8ef247"
+        />
+      </head>
       <body>
         <CommonProviders />
         <main className={cn`min-h-full h-dvh min-w-full ${open_sans.className}`}>
