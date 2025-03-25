@@ -14,7 +14,11 @@ const mainFeatures: IFeatures[] = [
   //   title: "Momotalk generator",
   // },
   // { url: "#", bgPath: "/BG_SchaleOperationRoom.jpg", title: "Music Archive" },
-  { url: "/sticker", bgPath: "/BG_HyakkiyakoSquareStreet.jpg", title: "Sticker Maker" },
+  {
+    url: "/sticker",
+    bgPath: "/BG_HyakkiyakoSquareStreet.jpg",
+    title: "Sticker Maker",
+  },
 ];
 
 export default async function Page() {

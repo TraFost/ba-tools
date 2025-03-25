@@ -26,14 +26,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body>
         <CommonProviders />
-        <main className={cn`min-h-full h-dvh min-w-full ${open_sans.className}`}>{children}</main>
+        <main className={cn`min-h-full h-dvh min-w-full ${open_sans.className}`}>
+          {children}
+          {modal}
+        </main>
       </body>
     </html>
   );

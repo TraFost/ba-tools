@@ -73,7 +73,13 @@ const StickerWrapper = () => {
     ctx.restore();
   };
 
-  const handleSetImage = ({ name, image }: { name?: string; image?: string }) => {
+  const handleSetImage = ({
+    name,
+    image,
+  }: {
+    name?: string;
+    image?: string;
+  }) => {
     const img = new Image();
     setName(name);
     img.src = image;

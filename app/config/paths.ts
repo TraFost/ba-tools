@@ -3,6 +3,10 @@ export const paths = {
     getHref: () => "/",
   },
 
+  sticker: {
+    getHref: () => "/sticker",
+  },
+
   auth: {
     register: {
       getHref: (redirectTo?: string | null | undefined) =>

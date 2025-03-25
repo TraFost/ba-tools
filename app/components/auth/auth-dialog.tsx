@@ -3,6 +3,7 @@ import type { FC } from "react";
 
 import { Button } from "components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "components/ui/dialog";
+import Image from "next/image";
 
 interface Props {
   open: boolean;
@@ -23,7 +24,7 @@ export const LoginModal: FC<Props> = ({ onClose, open, onLogin }) => {
             className="flex items-center justify-center gap-2"
             variant="outline"
           >
-            <Mail />
+            <Image src="/svg/google-icon.svg" alt="Google Icon" width={24} height={24} />
           </Button>
         </div>
       </DialogContent>
