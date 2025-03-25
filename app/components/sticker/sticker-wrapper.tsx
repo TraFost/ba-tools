@@ -100,8 +100,6 @@ const StickerWrapper = () => {
     link.click();
   };
 
-  console.log(transparent);
-
   return (
     <div className="flex flex-col justify-center items-center gap-2 mx-auto px-4 pt-8 pb-16">
       <Dialog>
