@@ -1,4 +1,4 @@
-export const config = {
+export const env = {
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
