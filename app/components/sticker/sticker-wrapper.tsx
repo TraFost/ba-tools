@@ -38,6 +38,7 @@ const StickerWrapper = () => {
   const [img, setImg] = useState<HTMLImageElement | null>(null);
   const [bgColor, setBgColor] = useState<string>("#000000");
   const [transparent, setTransparent] = useState<boolean>(true);
+  const [isTextBehind, setIsTextBehind] = useState<boolean>(false);
 
   useEffect(() => {
     handleSetImage(stickers[0]);
@@ -53,7 +54,14 @@ const StickerWrapper = () => {
     ctx.fillStyle = transparent ? "rgba(255, 255, 255, 0)" : bgColor;
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+    if (isTextBehind) drawText(ctx);
+
     ctx.drawImage(img, 0, 0, 512, 512);
+
+    if (!isTextBehind) drawText(ctx);
+  };
+
+  const drawText = (ctx: CanvasRenderingContext2D) => {
     ctx.font = `${fontSize}px Balsamiq Sans`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -203,6 +211,17 @@ const StickerWrapper = () => {
             value={color}
             onChange={(e) => setColor(e.target.value)}
           />
+        </div>
+        <div>
+          <label htmlFor="text-behind" className="flex items-center gap-1">
+            <Checkbox
+              id="text-behind"
+              onCheckedChange={() => setIsTextBehind(!isTextBehind)}
+              checked={isTextBehind}
+              defaultChecked={false}
+            />
+            <span>Text Behind Image</span>
+          </label>
         </div>
         <RadioGroup
           className="flex gap-4"
