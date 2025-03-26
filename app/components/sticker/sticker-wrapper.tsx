@@ -88,7 +88,6 @@ const StickerWrapper = () => {
 
   const [history, setHistory] = useState<StickerState[]>([]);
   const [currentStateIndex, setCurrentStateIndex] = useState<number>(-1);
-  const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragStartPos, setDragStartPos] = useState<Position>({ x: 0, y: 0 });
   const [activeTab, setActiveTab] = useState<string>("text");
@@ -344,77 +343,6 @@ const StickerWrapper = () => {
     setTimeout(saveToHistory, 0);
   };
 
-  const handlePointerDown = (e: React.PointerEvent): void => {
-    if (!canvasRef.current) return;
-
-    e.currentTarget.setPointerCapture(e.pointerId);
-
-    const rect = canvasRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const scaleX = 512 / rect.width;
-    const scaleY = 512 / rect.height;
-
-    const canvasX = x * scaleX;
-    const canvasY = y * scaleY;
-
-    const distance = Math.sqrt((canvasX - position.x) ** 2 + (canvasY - position.y) ** 2);
-
-    if (distance < 50) {
-      setIsDragging(true);
-      setDragStartPos({ x: canvasX, y: canvasY });
-      document.body.style.cursor = "grabbing";
-      e.preventDefault();
-    }
-  };
-
-  const handlePointerMove = (e: React.PointerEvent): void => {
-    if (!isDragging || !canvasRef.current) return;
-
-    setIsTooltipOpen(true);
-
-    e.preventDefault();
-
-    const rect = canvasRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const scaleX = 512 / rect.width;
-    const scaleY = 512 / rect.height;
-
-    const canvasX = x * scaleX;
-    const canvasY = y * scaleY;
-
-    const deltaX = canvasX - dragStartPos.x;
-    const deltaY = canvasY - dragStartPos.y;
-
-    setPosition({
-      x: Math.floor(Math.max(0, Math.min(512, position.x + deltaX))),
-      y: Math.floor(Math.max(0, Math.min(512, position.y + deltaY))),
-    });
-
-    setDragStartPos({ x: canvasX, y: canvasY });
-  };
-
-  const handlePointerUp = (e: React.PointerEvent): void => {
-    if (isDragging) {
-      if (e.pointerId) {
-        e.currentTarget.releasePointerCapture(e.pointerId);
-      }
-
-      setIsDragging(false);
-      document.body.style.cursor = "default";
-      saveToHistory();
-    }
-  };
-
-  const handlePointerLeave = (e: React.PointerEvent): void => {
-    setIsTooltipOpen(false);
-
-    handlePointerUp(e);
-  };
-
   const draw = (ctx: CanvasRenderingContext2D): void => {
     if (!img) return;
 
@@ -431,7 +359,7 @@ const StickerWrapper = () => {
 
     if (!isTextBehind) drawText(ctx);
 
-    if (isDragging || isTooltipOpen) {
+    if (isDragging) {
       ctx.fillStyle = "rgba(0, 120, 255, 0.3)";
       ctx.strokeStyle = "rgba(0, 120, 255, 0.8)";
       ctx.lineWidth = 2;
@@ -488,13 +416,8 @@ const StickerWrapper = () => {
       <TooltipProvider>
         <div
           className="flex flex-col gap-4 items-center"
-          style={{ width: "min(100%, 512px)", touchAction: "none" }}
+          style={{ width: "min(100%, 512px)" }}
           ref={canvasRef}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerLeave={handlePointerLeave}
-          onPointerCancel={handlePointerUp}
         >
           <div className="flex justify-between w-full mb-2">
             <div className="flex gap-2">
@@ -571,12 +494,6 @@ const StickerWrapper = () => {
 
           <div className="relative border rounded-lg overflow-hidden shadow-sm min-h-[300px] max-h-[512px] w-full">
             <Canvas draw={draw} />
-
-            {isTooltipOpen && (
-              <div className="absolute bottom-2 left-2 bg-black/70 text-white px-3 py-1 rounded-md text-sm">
-                Drag text position
-              </div>
-            )}
           </div>
 
           <Tooltip>
@@ -603,16 +520,16 @@ const StickerWrapper = () => {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="w-full grid grid-cols-4">
               <TabsTrigger value="text" className="flex items-center gap-1">
-                <Text className="size-4" /> Text
+                <Text className="hidden sm:block sm:size-4" /> Text
               </TabsTrigger>
               <TabsTrigger value="position" className="flex items-center gap-1">
-                <MoveHorizontal className="size-4" /> Position
+                <MoveHorizontal className="hidden sm:block sm:size-4" /> Position
               </TabsTrigger>
               <TabsTrigger value="style" className="flex items-center gap-1">
-                <Palette className="size-4" /> Style
+                <Palette className="hidden sm:block sm:size-4" /> Style
               </TabsTrigger>
               <TabsTrigger value="background" className="flex items-center gap-1">
-                <Layers className="size-4" /> Layout
+                <Layers className="hidden sm:block sm:size-4" /> Layout
               </TabsTrigger>
             </TabsList>
 
