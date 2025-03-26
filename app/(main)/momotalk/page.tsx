@@ -5,7 +5,7 @@ import { Link } from "components/ui/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "components/ui/tabs";
 import { HomeIcon } from "lucide-react";
 
-import { chats, students } from "../data/dataDummy";
+import { chats, students } from "../../data/dataDummy";
 
 const MomotalkPage = () => {
   return (

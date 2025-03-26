@@ -1,3 +1,4 @@
+import { MainLayout } from "components/layouts/main-layout";
 import { BASE_URL } from "config/constants";
 import { paths } from "config/paths";
 import { Balsamiq_Sans } from "next/font/google";
@@ -22,5 +23,11 @@ const balsamiq_sans = Balsamiq_Sans({
 });
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <MainLayout />
+
+      {children}
+    </>
+  );
 }

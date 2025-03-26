@@ -1,5 +1,5 @@
 import { Toaster } from "sonner";
 
 export const CommonProviders = () => {
-  return <Toaster />;
+  return <Toaster position="top-center" />;
 };
