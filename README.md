@@ -171,8 +171,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👥 Contributors
 
-- [Galih Aditya Dwisevi](https://github.com/galihadityad) - Original Idea
-- [Rahman Nurudin](https://github.com/rahmannurudin) - Contributor
+- [Galih Aditya Dwisevi](https://github.com/samsulpanjul) - Original Idea & Contributor
+- [Rahman Nurudin](https://github.com/TraFost) - Contributor
 
 ## 🙏 Acknowledgements
 

@@ -1,5 +1,3 @@
-// TODO: Add login page >> Galih Aditya Dwisevi
-
 "use client";
 
 import { useRouter } from "next/navigation";
