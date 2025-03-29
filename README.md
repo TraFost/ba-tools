@@ -1,147 +1,184 @@
-Blue Archive Tools
-==================
+# Blue Archive Tools
 
-**Blue Archive Tools** is a web application designed to provide fans of Blue Archive with a suite of creative and interactive tools. The app offers an immersive experience with a clean and vibrant design, reflecting the aesthetic of the game. Users can explore various features such as the **Dialog Maker**, **Momotalk**, and **Music** sections, each providing unique and engaging utilities for fans to enjoy😎
+![Blue Archive Tools](public/project_showcase.png)
 
-* * * * *
+Hey there! Welcome to our collection of fun tools for Blue Archive fans.
 
-🚀 Quick Start
---------------
+## 🚀 Check It Out!
 
-1.  **Clone the repository.**
+[Blue Archive Tools Live Demo](https://ba-tools-plum.vercel.app/)
 
-    ```bash
-    git clone
-    ```
+## 📝 What's This All About?
 
-2.  **Install dependencies.**
+We created Blue Archive Tools as a passion project for fellow Blue Archive players. Right now, we've got a pretty cool Sticker Maker up and running, and we're excited to add more stuff like a Momotalk Generator and Music Archive soon!
 
-    ```bash
-    npm install
-    ```
+## ✨ What Can You Do With It?
 
-3.  **Start the development server.**
+### 🎨 Sticker Maker
 
-    ```bash
-    npm run dev
-    ```
+- **Pick Your Character**: We've included tons of your favorite Blue Archive characters
+- **Add Your Text**: Type whatever you want and make it look just right
+- **Move Stuff Around**: Use sliders or just drag things where you want them
+- **Make It Pretty**: Change the font size, spacing, colors, and add outlines
+- **Get Creative with Layout**: Put text behind characters, rotate it, change backgrounds
+- **Save It**: Just hit download and your sticker is ready to share!
 
-4.  **Open the browser and visit `http://localhost:3000`.**
+### 💬 Momotalk Simulator (Coming Soon)
 
-* * * * *
+- Create your own Momotalk conversations with your favorite characters
 
-🛠️ Features
-------------
+### 🎵 Music Archive (Coming Soon)
 
--   **Dialog Maker:** Create custom dialogues in the style of Blue Archive, perfect for fan fiction, roleplay, or storytelling.
+- Listen to all those catchy Blue Archive tunes in one place
 
--   **Momotalk:** Simulate in-game chat scenarios with your favorite characters, adding a layer of interactivity to your creations.
+## 🛠️ How We Built It
 
--   **Music:** Access and explore a curated selection of in-game music to enhance your projects or enjoy casually.
+So you're curious about the tech? Here's what we used:
 
-* * * * *
+### The Building Blocks
 
-🛠️ Tech Stack
---------------
+- **Next.js 14**: This powerhouse let us create both server and client components
+- **TypeScript**: Helps us catch bugs before they happen
+- **Tailwind CSS**: Made styling super quick and consistent
+- **Radix UI**: Gave us accessible components that we could customize
+- **Lucide Icons**: These icons just look nice, don't they?
 
--   **Next.js 15**
+### Making It Look Good
 
--   **React 18**
+- **Custom Components**: We built everything to fit the Blue Archive vibe
+- **Works Everywhere**: Use it on your phone, tablet, or computer
+- **Consistent Look**: Everything follows the same style guide
 
--   **Turbopack**
+### Keeping It Secure
 
--   **Tailwind CSS** 
+- **Supabase Auth**: Log in with your Google account
 
--   **ShadCN/UI**
+### Getting It Online
 
--   **Radix UI**
+- **Vercel**: Handles all the hosting magic for us
 
--   **Vitest**
-
--   **Biome**
-
-* * * * *
-
-📂 Project Structure
---------------------
+## 📂 Project Structure
 
 ```
-├── app
-│   ├── components      # UI components
-│   ├── hooks           # Custom hooks
-│   ├── lib             # Utility functions
-│   ├── styles          # Global CSS
-│   ├── tests           # Integration and unit tests
-│   ├── layout.tsx      # Root layout
-│   ├── pages           # Next.js pages
-│   └── page.tsx        # Main page component
-├── public              # Static files
-├── scripts/hooks       # Git hooks
-└── ...
+app/
+├── (main)/                # Main application routes
+│   ├── momotalk/          # Momotalk simulator
+│   ├── music/             # Music archive
+│   └── sticker/           # Sticker maker
+├── @modal/                # Intercepting routes for modals
+├── components/            # Reusable UI components
+│   ├── auth/              # Authentication components
+│   ├── layouts/           # Layout components
+│   ├── momotalk/          # Momotalk-specific components
+│   ├── music/             # Music-related components
+│   ├── sticker/           # Sticker maker components
+│   └── ui/                # Base UI components
+├── config/                # Application configurations
+├── data/                  # Static data for the application
+├── lib/                   # Utility functions and services
+│   ├── auth/              # Authentication utilities
+│   └── supabase/          # Supabase client config
+├── providers/             # React context providers
+└── styles/                # Global styles
 ```
 
-* * * * *
+## 🎯 Core Functionality
 
-🔍 Available Scripts
---------------------
+The Sticker Maker allows users to:
 
--   `dev`: Start development server with Turbopack
+1. Select a character from the Blue Archive universe
+2. Add custom text with various styling options
+3. Position and rotate text using intuitive controls
+4. Download the finished sticker as a PNG file
 
--   `build`: Build the application
+## 🖌️ Canvas Implementation
 
--   `start`: Start the production server
+The application uses a custom Canvas component that:
 
--   `lint`: Run Biome linter
+- Renders characters and text on an HTML5 canvas
+- Provides real-time preview while editing
+- Supports transparent backgrounds for versatile use
 
--   `format`: Format code using Biome
+## 📱 Responsive Design
 
--   `test`: Run tests with Vitest
+The application is fully responsive with:
 
-* * * * *
+- Mobile-optimized controls using tabs interface
+- Desktop layout with side-by-side preview and controls
+- Adaptive canvas sizing based on screen dimensions
 
-🧪 Testing
-----------
+## 🔒 Authentication
 
-This project uses **Vitest** and **React Testing Library** for testing. The test setup is configured in `app/tests/vitest.setup.ts`.
+User authentication is implemented using:
 
-Run tests with:
+- Supabase Authentication
+- Google OAuth provider
+- Server-side session management
+
+## 🚀 Want to Run It Locally?
+
+### What You'll Need
+
+- Node.js 18+
+- npm, yarn, or pnpm
+
+### Step-by-Step Setup
+
+1. Grab the code
+
+```bash
+git clone https://github.com/TraFost/ba-tools.git
+cd blue-archive-tools
+```
+
+2. Install all the goodies
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Create your secret sauce
+   Make a `.env` file with these ingredients:
 
 ```
-npm run test
+SUPABASE_PROJECT_URL=your_supabase_url
+SUPABASE_API_KEY=your_supabase_key
+SUPABASE_DB_PASSWORD=your_db_password
+SUPABASE_CALLBACK_URL=your_callback_url
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 ```
 
-* * * * *
+4. Fire it up!
 
-🧹 Code Quality
----------------
-
-Biome is configured for linting and formatting. It is integrated with Git pre-commit hooks to ensure consistent code quality.
-
-```
-npm run lint
-npm run format
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm run dev
 ```
 
-* * * * *
+5. Head to [http://localhost:3000](http://localhost:3000) and have fun!
 
-⚙️ Configuration
-----------------
+## 📝 License
 
-### Biome
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Biome is used for both linting and formatting, configured in `biome.json` and `.vscode/settings.json`.
+## 👥 Contributors
 
-### Tailwind CSS
+- [Galih Aditya Dwisevi](https://github.com/galihadityad) - Original Idea
+- [Rahman Nurudin](https://github.com/rahmannurudin) - Contributor
 
-Tailwind configuration is defined in `tailwind.config.js` with extended theme settings and dark mode support.
+## 🙏 Acknowledgements
 
-### Testing
+- Blue Archive game by Nexon and Yostar
+- All the amazing art creators from the Blue Archive community
 
-Testing environment is set up using `vitest.config.mts`.
+---
 
-* * * * *
-
-🎯 Target Audience
-------------------
-
-Blue Archive Tools is ideal for fans of the game, content creators, and anyone interested in exploring creative possibilities within the Blue Archive universe. Whether for fun, content creation, or fan engagement, the app offers tools to bring imagination to life.
+**Note**: Blue Archive Tools is a fan-made project and is not affiliated with Nexon or Yostar.

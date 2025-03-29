@@ -1,6 +1,6 @@
-import AlbumCard from "components/music/album-card";
 import { Input } from "@/app/components/ui/input";
 import { albums } from "@/app/data/dataMusic";
+import AlbumCard from "components/music/album-card";
 
 const MusicPage = () => {
   return (
