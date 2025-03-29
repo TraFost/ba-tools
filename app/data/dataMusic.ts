@@ -42,4 +42,59 @@ export const albums = {
     image: "/BG.jpg",
     songs: [1, 3, 4],
   },
+  asd2: {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  qweqwe2: {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  "red-winter-federal223-academy": {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  "red-winter-federal2sd23-academy": {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  "red-winter-federal22as3-academy": {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  "red-winter-federalds223-academy": {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  "red-winter-fedeweral223-academy": {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  "red-winter-federaal223-academy": {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  "red-winter-federal2d23-academy": {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  "red-winter-federals223-academy": {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
+  "red-winter-federal223-acafgdemy": {
+    section: "songs",
+    image: "/BG.jpg",
+    songs: [1, 3, 4],
+  },
 };
