@@ -88,8 +88,6 @@ const StickerWrapper = () => {
 
   const [history, setHistory] = useState<StickerState[]>([]);
   const [currentStateIndex, setCurrentStateIndex] = useState<number>(-1);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [dragStartPos, setDragStartPos] = useState<Position>({ x: 0, y: 0 });
   const [activeTab, setActiveTab] = useState<string>("text");
 
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -115,22 +113,6 @@ const StickerWrapper = () => {
 
     setHistory([initialState]);
     setCurrentStateIndex(0);
-
-    const handleKeyDown = (e: globalThis.KeyboardEvent): void => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "z") {
-        if (!e.shiftKey) {
-          handleUndo();
-        } else {
-          handleRedo();
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
   }, []);
 
   useEffect(() => {
@@ -148,8 +130,34 @@ const StickerWrapper = () => {
     };
   }, [name]);
 
-  const saveToHistory = useCallback(() => {
-    const currentState: StickerState = {
+  const saveToHistory = useCallback(
+    (updatedState = {}) => {
+      const currentState = {
+        text,
+        name,
+        color,
+        orientation,
+        fontSize,
+        position,
+        lineH,
+        stroke,
+        strokeColor,
+        rotate,
+        bgColor,
+        transparent,
+        isTextBehind,
+        ...updatedState,
+      };
+
+      setHistory((prev) => {
+        const newHistory = prev.slice(0, currentStateIndex + 1);
+        newHistory.push(currentState);
+        return newHistory;
+      });
+
+      setCurrentStateIndex((prev) => prev + 1);
+    },
+    [
       text,
       name,
       color,
@@ -163,30 +171,9 @@ const StickerWrapper = () => {
       bgColor,
       transparent,
       isTextBehind,
-    };
-
-    const newHistory = history.slice(0, currentStateIndex + 1);
-    newHistory.push(currentState);
-
-    setHistory(newHistory);
-    setCurrentStateIndex(newHistory.length - 1);
-  }, [
-    text,
-    name,
-    color,
-    orientation,
-    fontSize,
-    position,
-    lineH,
-    stroke,
-    strokeColor,
-    rotate,
-    bgColor,
-    transparent,
-    isTextBehind,
-    history,
-    currentStateIndex,
-  ]);
+      currentStateIndex,
+    ],
+  );
 
   const handleUndo = useCallback(() => {
     if (currentStateIndex > 0) {
@@ -251,8 +238,9 @@ const StickerWrapper = () => {
   }, [currentStateIndex, history, name]);
 
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
-    setText(e.target.value);
-    setTimeout(saveToHistory, 0);
+    const newText = e.target.value;
+    setText(newText);
+    saveToHistory({ text: newText });
   };
 
   const handleTextKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>): void => {
@@ -261,13 +249,15 @@ const StickerWrapper = () => {
       const cursorPosition = e.currentTarget.selectionStart;
       const textStart = text.substring(0, cursorPosition);
       const textEnd = text.substring(cursorPosition);
-      setText(`${textStart}\n${textEnd}`);
+      const newText = `${textStart}\n${textEnd}`;
+      setText(newText);
+
       setTimeout(() => {
         if (e.currentTarget) {
           e.currentTarget.selectionStart = cursorPosition + 1;
           e.currentTarget.selectionEnd = cursorPosition + 1;
         }
-        saveToHistory();
+        saveToHistory({ text: newText });
       }, 0);
     }
   };
@@ -278,69 +268,81 @@ const StickerWrapper = () => {
     img.src = image;
     img.onload = () => {
       setImg(img);
-      setTimeout(saveToHistory, 0);
+      saveToHistory({ name });
       setActiveTab("position");
     };
   };
 
   const handlePositionX = (val: number[]): void => {
-    setPosition((prev) => ({ ...prev, x: val[0] }));
-    setTimeout(saveToHistory, 0);
+    const newX = val[0];
+    setPosition((prev) => ({ ...prev, x: newX }));
+    saveToHistory({ position: { x: newX, y: position.y } });
   };
 
   const handlePositionY = (val: number[]): void => {
-    setPosition((prev) => ({ ...prev, y: val[0] }));
-    setTimeout(saveToHistory, 0);
+    const newY = val[0];
+    setPosition((prev) => ({ ...prev, y: newY }));
+    saveToHistory({ position: { x: position.x, y: newY } });
   };
 
   const handleRotate = (val: number[]): void => {
-    setRotate(val[0]);
-    setTimeout(saveToHistory, 0);
+    const newRotate = val[0];
+    setRotate(newRotate);
+    saveToHistory({ rotate: newRotate });
   };
 
   const handleTransparent = (): void => {
-    setTransparent(!transparent);
-    setTimeout(saveToHistory, 0);
+    const newTransparent = !transparent;
+    setTransparent(newTransparent);
+    saveToHistory({ transparent: newTransparent });
   };
 
   const handleBgColor = (e: ChangeEvent<HTMLInputElement>): void => {
-    setBgColor(e.target.value);
-    setTimeout(saveToHistory, 0);
+    const newBgColor = e.target.value;
+    setBgColor(newBgColor);
+    saveToHistory({ bgColor: newBgColor });
   };
 
   const handleTextBehind = (): void => {
-    setIsTextBehind(!isTextBehind);
-    setTimeout(saveToHistory, 0);
+    const newIsTextBehind = !isTextBehind;
+    setIsTextBehind(newIsTextBehind);
+    saveToHistory({ isTextBehind: newIsTextBehind });
   };
 
   const handleOrientation = (val: string): void => {
-    setOrientation(val as "horizontal" | "vertical");
-    setTimeout(saveToHistory, 0);
+    const newOrientation = val as "horizontal" | "vertical";
+    setOrientation(newOrientation);
+    saveToHistory({ orientation: newOrientation });
   };
 
   const handleTextColor = (e: ChangeEvent<HTMLInputElement>): void => {
-    setColor(e.target.value);
-    setTimeout(saveToHistory, 0);
+    const newColor = e.target.value;
+    setColor(newColor);
+    saveToHistory({ color: newColor });
   };
 
   const handleFontSize = (val: number[]): void => {
-    setFontSize(val[0]);
-    setTimeout(saveToHistory, 0);
+    const newFontSize = val[0];
+    setFontSize(newFontSize);
+    saveToHistory({ fontSize: newFontSize });
   };
 
   const handleLineHeight = (val: number[]): void => {
-    setLineH(val[0]);
-    setTimeout(saveToHistory, 0);
+    const newLineH = val[0];
+    setLineH(newLineH);
+    saveToHistory({ lineH: newLineH });
   };
 
   const handleStroke = (val: number[]): void => {
-    setStroke(val[0]);
-    setTimeout(saveToHistory, 0);
+    const newStroke = val[0];
+    setStroke(newStroke);
+    saveToHistory({ stroke: newStroke });
   };
 
   const handleStrokeColor = (e: ChangeEvent<HTMLInputElement>): void => {
-    setStrokeColor(e.target.value);
-    setTimeout(saveToHistory, 0);
+    const newStrokeColor = e.target.value;
+    setStrokeColor(newStrokeColor);
+    saveToHistory({ strokeColor: newStrokeColor });
   };
 
   const draw = (ctx: CanvasRenderingContext2D): void => {
@@ -358,16 +360,6 @@ const StickerWrapper = () => {
     ctx.drawImage(img, 0, 0, 512, 512);
 
     if (!isTextBehind) drawText(ctx);
-
-    if (isDragging) {
-      ctx.fillStyle = "rgba(0, 120, 255, 0.3)";
-      ctx.strokeStyle = "rgba(0, 120, 255, 0.8)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.arc(position.x, position.y, 10, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
-    }
   };
 
   const drawText = (ctx: CanvasRenderingContext2D): void => {
@@ -407,9 +399,30 @@ const StickerWrapper = () => {
   };
 
   const centerText = (): void => {
-    setPosition({ x: 256, y: 256 });
-    setTimeout(saveToHistory, 0);
+    const newPosition = { x: 256, y: 256 };
+    setPosition(newPosition);
+    saveToHistory({ position: newPosition });
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent): void => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z" && !e.shiftKey) {
+        e.preventDefault();
+        handleUndo();
+      }
+
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z" && e.shiftKey) {
+        e.preventDefault();
+        handleRedo();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleUndo, handleRedo]);
 
   return (
     <div className="flex flex-col lg:flex-row justify-center items-start gap-4 mx-auto px-4 pt-8 pb-16 max-w-6xl">
