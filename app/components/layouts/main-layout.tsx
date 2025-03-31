@@ -1,5 +1,6 @@
 "use client";
 
+import MaintainerInfo from "components/maintainer-info";
 import { Link } from "components/ui/link";
 import { HomeIcon, StickerIcon } from "lucide-react";
 
@@ -20,6 +21,7 @@ export const MainLayout = () => (
       </div>
 
       <div className="flex items-center gap-3">
+        <MaintainerInfo triggerClassName="text-secondary hover:bg-primary/20" />
         <Link
           href="/"
           className="text-accent bg-primary p-2 rounded-lg hover:bg-primary/90 hover:shadow-lg transition-all duration-200 flex items-center gap-2"
