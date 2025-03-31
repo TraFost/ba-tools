@@ -441,6 +441,7 @@ const StickerWrapper = () => {
                     size="icon"
                     onClick={handleUndo}
                     disabled={currentStateIndex <= 0}
+                    aria-label="Undo last action"
                   >
                     <Undo2 className="size-5" />
                   </Button>
@@ -457,6 +458,7 @@ const StickerWrapper = () => {
                     size="icon"
                     onClick={handleRedo}
                     disabled={currentStateIndex >= history.length - 1}
+                    aria-label="Redo last action"
                   >
                     <Redo2 className="size-5" />
                   </Button>
@@ -470,9 +472,12 @@ const StickerWrapper = () => {
             <Dialog>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <DialogTrigger className="cursor-pointer -skew-x-12 h-10 px-6 has-[>svg]:px-4 bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive">
+                  <DialogTrigger
+                    aria-label="Open sticker selection dialog"
+                    className="cursor-pointer -skew-x-12 h-10 px-6 has-[>svg]:px-4 bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                  >
                     <span className="skew-x-12 text-lg font-semibold flex items-center gap-2">
-                      <ImageIcon className="size-5" />
+                      <ImageIcon className="size-5" aria-hidden="true" />
                       Select Sticker
                     </span>
                   </DialogTrigger>
@@ -516,9 +521,10 @@ const StickerWrapper = () => {
                 size="lg"
                 onClick={() => download(name)}
                 variant="default"
+                aria-label="Download sticker"
               >
                 <span className="skew-x-12 text-lg font-semibold flex items-center gap-2">
-                  <Download className="size-5" />
+                  <Download className="size-5" aria-hidden="true" />
                   Download Sticker
                 </span>
               </Button>
@@ -549,8 +555,8 @@ const StickerWrapper = () => {
             <TabsContent value="text" className="p-4 border rounded-lg mt-2">
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="content" className="block mb-1 font-medium">
-                    <Text className="size-4 inline mr-1" /> Sticker Text
+                  <label htmlFor="content" className="block mb-1 font-medium" id="content-label">
+                    <Text className="size-4 inline mr-1" aria-hidden="true" /> Sticker Text
                   </label>
                   <Textarea
                     name="content"
@@ -560,17 +566,23 @@ const StickerWrapper = () => {
                     onChange={handleTextChange}
                     onKeyDown={handleTextKeyDown}
                     placeholder="Enter your text here..."
+                    aria-labelledby="content-label"
+                    aria-describedby="content-description"
                   />
+                  <p id="content-description" className="sr-only">
+                    Text that will appear on your sticker. Press Enter for new line.
+                  </p>
                 </div>
 
-                <div>
-                  <label htmlFor="orientation" className="flex items-center gap-2 mb-2 font-medium">
-                    <Type className="size-4" /> Orientation
-                  </label>
+                <fieldset>
+                  <legend className="flex items-center gap-2 mb-2 font-medium">
+                    <Type className="size-4" aria-hidden="true" /> Orientation
+                  </legend>
                   <RadioGroup
                     className="flex flex-col sm:flex-row gap-4"
                     value={orientation}
                     onValueChange={handleOrientation}
+                    aria-label="Text orientation"
                   >
                     <div className="flex items-center gap-1 border rounded-md px-3 py-2 hover:bg-muted/50 cursor-pointer">
                       <RadioGroupItem value="horizontal" id="horizontal" />
@@ -578,7 +590,8 @@ const StickerWrapper = () => {
                         htmlFor="horizontal"
                         className="cursor-pointer flex items-center gap-1"
                       >
-                        <MoveHorizontal className="size-4" /> Horizontal Line Breaks
+                        <MoveHorizontal className="size-4" aria-hidden="true" /> Horizontal Line
+                        Breaks
                       </label>
                     </div>
                     <div className="flex items-center gap-1 border rounded-md px-3 py-2 hover:bg-muted/50 cursor-pointer">
@@ -588,7 +601,7 @@ const StickerWrapper = () => {
                       </label>
                     </div>
                   </RadioGroup>
-                </div>
+                </fieldset>
               </div>
             </TabsContent>
 
@@ -618,6 +631,10 @@ const StickerWrapper = () => {
                     onValueChange={handlePositionX}
                     value={[position.x]}
                     className="mb-4"
+                    aria-labelledby="position-x-label"
+                    aria-valuemin={0}
+                    aria-valuemax={512}
+                    aria-valuenow={position.x}
                   />
                 </div>
 
@@ -741,16 +758,22 @@ const StickerWrapper = () => {
               <div className="space-y-4">
                 <div className="flex flex-col gap-2">
                   <label
+                    id="text-behind-label"
                     htmlFor="text-behind"
                     className="font-medium flex items-center gap-1 cursor-pointer"
                   >
                     <Checkbox
                       id="text-behind"
+                      aria-labelledby="text-behind-label"
                       onCheckedChange={handleTextBehind}
                       checked={isTextBehind}
                     />
                     <span className="flex items-center gap-1">
-                      {isTextBehind ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                      {isTextBehind ? (
+                        <EyeOff className="size-4" aria-hidden="true" />
+                      ) : (
+                        <Eye className="size-4" aria-hidden="true" />
+                      )}
                       {isTextBehind ? "Text behind image" : "Text in front of image"}
                     </span>
                   </label>
