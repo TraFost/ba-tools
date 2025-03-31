@@ -20,6 +20,9 @@ const Canvas: FC<Props> = (props) => {
       ref={canvasRef}
       {...rest}
       className="w-full min-[426px]:w-[400px] min-[560px]:w-[512px]"
+      role="img"
+      aria-label="Sticker preview"
+      tabIndex={0}
     />
   );
 };
