@@ -1,23 +1,31 @@
 export const songs = [
   {
     id: "1",
-    title: "Theme 1 - KIRISAME",
-    producer: "Mitsukiyo",
+    title: "KIRISAME",
+    artist: "Mitsukiyo",
+    src: "/Theme 1.ogg",
+    image: "/Haruna.png",
   },
   {
     id: "2",
-    title: "Theme 2 - ASDASD",
-    producer: "Mitsukiyo",
+    title: "ASDASD",
+    artist: "Mitsukiyo",
+    src: "/Theme 2.ogg",
+    image: "/Akane_(Bunny_Girl).png",
   },
   {
     id: "3",
-    title: "Theme 3 - Q1WE",
-    producer: "Mitsukiyo",
+    title: "Q1WE",
+    artist: "ogg",
+    src: "/Theme -2.ogg",
+    image: "/Ako.png",
   },
   {
     id: "4",
-    title: "Theme 4 - FGHVBC",
-    producer: "Mitsukiyo",
+    title: "Mechanical JUNGLE (Hi-Tech Full On MIX)",
+    artist: "Mitsukiyo",
+    src: "Theme -1.ogg",
+    image: "/BG.jpg",
   },
 ];
 
@@ -25,76 +33,66 @@ export const albums = {
   mitsukiyo: {
     section: "artist",
     image: "/Haruna.png",
-    songs: [1, 2, 3, 4],
+    musics: [songs[0], songs[1], songs[2], songs[3]],
   },
-  "game-development-department": {
-    section: "songs",
-    image: "/Akane_(Bunny_Girl).png",
-    songs: [1, 4],
+  bunnyGirl: {
+    section: "vibes",
+    image: "/akane_(Bunny_Girl).png",
+    musics: [songs[1], songs[3], songs[2], songs[0]],
   },
-  event: {
-    section: "songs",
+  akoVibes: {
+    section: "collection",
+    image: "/Ako.png",
+    musics: [songs[2], songs[0], songs[3], songs[1]],
+  },
+  bgJungle: {
+    section: "mixes",
     image: "/BG.jpg",
-    songs: [1, 2],
+    musics: [songs[3], songs[1], songs[0], songs[2]],
   },
-  "red-winter-federal-academy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
+  midnightVibes: {
+    section: "vibes",
+    image: "/akane_(Bunny_Girl).png", // Reuse bunny girl image
+    musics: [songs[0], songs[2], songs[3], songs[1]],
   },
-  asd2: {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
+  acousticCollection: {
+    section: "collection",
+    image: "/Ako.png", // Reuse Ako image
+    musics: [songs[1], songs[0], songs[2], songs[3]],
   },
-  qweqwe2: {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
+  urbanMixes: {
+    section: "mixes",
+    image: "/BG.jpg", // Reuse BG image
+    musics: [songs[2], songs[3], songs[1], songs[0]],
   },
-  "red-winter-federal223-academy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
+  urbanMixessd: {
+    section: "mixes",
+    image: "/BG.jpg", // Reuse BG image
+    musics: [songs[2], songs[3], songs[1], songs[0]],
   },
-  "red-winter-federal2sd23-academy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
+  urbanMixesa: {
+    section: "mixes",
+    image: "/BG.jpg", // Reuse BG image
+    musics: [songs[2], songs[3], songs[1], songs[0]],
   },
-  "red-winter-federal22as3-academy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
+  urbanMixdses: {
+    section: "mixes",
+    image: "/BG.jpg", // Reuse BG image
+    musics: [songs[2], songs[3], songs[1], songs[0]],
   },
-  "red-winter-federalds223-academy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
+  urbandsMixes: {
+    section: "mixes",
+    image: "/BG.jpg", // Reuse BG image
+    musics: [songs[2], songs[3], songs[1], songs[0]],
   },
-  "red-winter-fedeweral223-academy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
+  urbanMasdixes: {
+    section: "mixes",
+    image: "/BG.jpg", // Reuse BG image
+    musics: [songs[2], songs[3], songs[1], songs[0]],
   },
-  "red-winter-federaal223-academy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
-  },
-  "red-winter-federal2d23-academy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
-  },
-  "red-winter-federals223-academy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
-  },
-  "red-winter-federal223-acafgdemy": {
-    section: "songs",
-    image: "/BG.jpg",
-    songs: [1, 3, 4],
+  urbansdzMixes: {
+    section: "mixes",
+    image: "/BG.jpg", // Reuse BG image
+    musics: [songs[2], songs[3], songs[1], songs[0]],
   },
 };

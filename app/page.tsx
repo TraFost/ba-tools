@@ -13,7 +13,7 @@ const mainFeatures: IFeatures[] = [
   //   bgPath: "/BG_HyakkiyakoSquareStreet.jpg",
   //   title: "Momotalk generator",
   // },
-  // { url: "#", bgPath: "/BG_SchaleOperationRoom.jpg", title: "Music Archive" },
+  { url: "/music", bgPath: "/BG_SchaleOperationRoom.jpg", title: "Music Archive" },
   {
     url: "/sticker",
     bgPath: "/BG_HyakkiyakoSquareStreet.jpg",
