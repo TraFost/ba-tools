@@ -1,14 +1,14 @@
-import { Link } from "components/ui/link";
-import AlbumImage from "components/music/album-image";
-import { getAlbums } from "@/app/lib/fetcher/get-album";
+import AlbumImage from "@/app/components/music/album-image";
+import { Link } from "@/app/components/ui/link";
+import { getAlbumByArtist } from "@/app/lib/fetcher/get-album";
 import type { IAlbum } from "@/app/type/music-type";
 
-const MusicPage = async () => {
-  const albums = await getAlbums();
+const ArtistsPage = async () => {
+  const albums = await getAlbumByArtist();
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 lg:gap-4">
-      {albums.map(async (album: IAlbum) => (
+      {albums.map((album: IAlbum) => (
         <Link
           href={`/music/${album.title.replaceAll(" ", "-")}`}
           key={album.id}
@@ -17,11 +17,7 @@ const MusicPage = async () => {
         >
           <AlbumImage
             music={album.tracks}
-            src={
-              album.image
-                ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${album.image}`
-                : "/icon.png"
-            }
+            src={album.image ? album.image : "/Akane_(Bunny_Girl).png"}
             alt={album.title}
             width={256}
             height={256}
@@ -36,4 +32,4 @@ const MusicPage = async () => {
   );
 };
 
-export default MusicPage;
+export default ArtistsPage;

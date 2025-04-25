@@ -1,6 +1,7 @@
 "use client";
 
-import { type Track, useMusicContext } from "providers/music-providers";
+import { useMusicContext } from "providers/music-providers";
+import type { ITrack } from "@/app/type/music-type";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,25 +17,50 @@ import {
   UserRoundIcon,
 } from "lucide-react";
 import type { FC } from "react";
+import { Link } from "components/ui/link";
 
 interface Props {
-  musicList: Track[];
+  musicList: ITrack[];
 }
 
 const MusicList: FC<Props> = (props) => {
   const { musicList } = props;
 
-  const { setCurrentTrack, setTrackIndex, setPlaylist, currentTrack } = useMusicContext();
+  const { setCurrentTrack, setTrackIndex, setQueue, currentTrack, audioRef, setIsPlaying } =
+    useMusicContext();
 
-  const handlePlay = (music: Track, index: number) => {
+  const handlePlay = (music: ITrack, index: number) => {
     setCurrentTrack(music);
     setTrackIndex(index);
-    setPlaylist(musicList);
+    setQueue([music]);
+    setIsPlaying(true);
+    audioRef.current.play();
+  };
+
+  const downloadMusic = async (music: ITrack) => {
+    try {
+      const response = await fetch(music.src);
+
+      if (!response.ok) throw new Error("Failed to download file");
+
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = `${music.artist} - ${music.title}.ogg`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
   };
 
   return (
-    <div className="mb-[100px]">
-      {musicList?.map((music: Track, index: number) => (
+    <div>
+      {musicList?.map((music: ITrack, index: number) => (
         <button
           type="button"
           key={music.src}
@@ -49,7 +75,11 @@ const MusicList: FC<Props> = (props) => {
             <div className="flex items-center gap-2">
               <div className="shrink-0">
                 <img
-                  src={music.image}
+                  src={
+                    music.image
+                      ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${music.image}`
+                      : "/icon.png"
+                  }
                   alt={music.title}
                   className="w-12 h-12 rounded-lg object-cover"
                 />
@@ -73,7 +103,7 @@ const MusicList: FC<Props> = (props) => {
               <DropdownMenuContent className="font-semibold text-accent bg-white rounded-lg shadow-lg p-4">
                 <DropdownMenuItem
                   onClick={(e) => {
-                    setPlaylist((track) =>
+                    setQueue((track) =>
                       track.find((item) => item.src === music.src) ? track : [...track, music],
                     );
                     e.stopPropagation();
@@ -82,13 +112,20 @@ const MusicList: FC<Props> = (props) => {
                   <ListMusicIcon />
                   <span>Add to queue</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
+                <DropdownMenuItem
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    downloadMusic(music);
+                  }}
+                >
                   <DownloadIcon />
                   <span>Download music</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-                  <UserRoundIcon />
-                  <span>Go to composer</span>
+                <DropdownMenuItem asChild onClick={(e) => e.stopPropagation()}>
+                  <Link href={`/music/${music.artist.replaceAll(" ", "-").toLocaleLowerCase()}`}>
+                    <UserRoundIcon />
+                    <span>Go to composer</span>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
                   <Share2Icon />

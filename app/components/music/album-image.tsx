@@ -1,9 +1,10 @@
 "use client";
 
-import { type Track, useMusicContext } from "providers/music-providers";
+import { useMusicContext } from "providers/music-providers";
 import { PlayIcon } from "lucide-react";
 import Image from "next/image";
 import type { FC } from "react";
+import type { ITrack } from "@/app/type/music-type";
 
 interface Props {
   src: string;
@@ -11,18 +12,20 @@ interface Props {
   width: number;
   height: number;
   isVisible: boolean;
-  music: Track[];
+  music: ITrack[];
 }
 
 const AlbumImage: FC<Props> = (props) => {
   const { src, alt, width, height, isVisible, music } = props;
 
-  const { setCurrentTrack, setTrackIndex, setPlaylist } = useMusicContext();
+  const { setCurrentTrack, setTrackIndex, setQueue, audioRef, setIsPlaying } = useMusicContext();
 
-  const handlePlay = (music: Track[]) => {
-    setCurrentTrack(music[0]);
+  const handlePlay = (music: ITrack[]) => {
+    setQueue(music);
     setTrackIndex(0);
-    setPlaylist(music);
+    setCurrentTrack(music[0]);
+    audioRef.current?.play();
+    setIsPlaying(true);
   };
 
   return (

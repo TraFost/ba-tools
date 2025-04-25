@@ -1,6 +1,7 @@
 import AlbumImage from "components/music/album-image";
-import { albums } from "@/app/data/dataMusic";
 import MusicList from "components/music/music-list";
+import { getAlbumByTitle } from "@/app/lib/fetcher/get-album";
+import type { IAlbum } from "@/app/type/music-type";
 
 const AlbumPage = async ({
   params,
@@ -8,14 +9,17 @@ const AlbumPage = async ({
   params: Promise<{ title: string }>;
 }) => {
   const { title } = await params;
-  const { image, musics } = albums[title];
+
+  const album: IAlbum = await getAlbumByTitle(title.replaceAll("-", " "));
+
+  if (!album) <div>No album found</div>;
 
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="flex max-lg:flex-col gap-4">
         <AlbumImage
-          music={musics}
-          src={image}
+          music={album.tracks}
+          src={album.image ? album.image : "/icon.png"}
           alt={title}
           width={208}
           height={208}
@@ -23,11 +27,13 @@ const AlbumPage = async ({
         />
         <div className="flex flex-col justify-end gap-1 lg:gap-3">
           <p className="text-accent-foreground font-semibold">Playlist</p>
-          <p className="capitalize text-4xl font-bold text-accent">{title.replaceAll("-", " ")}</p>
-          <p className="text-accent-foreground font-semibold text-lg">{musics?.length} tracks</p>
+          <p className="capitalize text-4xl font-bold text-accent">{album.title}</p>
+          <p className="text-accent-foreground font-semibold text-lg">
+            {album.tracks.length} tracks
+          </p>
         </div>
       </div>
-      <MusicList musicList={musics} />
+      <MusicList musicList={album.tracks} />
     </div>
   );
 };

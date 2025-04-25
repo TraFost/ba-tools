@@ -15,7 +15,7 @@ const Controls = () => {
     setCurrentTrack,
     isPlaying,
     setIsPlaying,
-    playlist,
+    queue,
     trackIndex,
     isShuffle,
     setIsShuffle,
@@ -37,12 +37,17 @@ const Controls = () => {
 
   const handleNext = () => {
     setTrackIndex((prev) => {
+      const currentQueue = queue;
+      if (currentQueue.length === 0) return prev;
+
       const newIndex = isShuffle
-        ? Math.floor(Math.random() * playlist.length)
-        : prev >= playlist.length - 1
+        ? Math.floor(Math.random() * currentQueue.length)
+        : prev >= currentQueue.length - 1
           ? 0
           : prev + 1;
-      setCurrentTrack(playlist[newIndex]);
+
+      const nextTrack = currentQueue[newIndex];
+      setCurrentTrack(nextTrack);
       return newIndex;
     });
   };
@@ -50,11 +55,11 @@ const Controls = () => {
   const handlePrev = () => {
     setTrackIndex((prev) => {
       const newIndex = isShuffle
-        ? Math.floor(Math.random() * playlist.length)
+        ? Math.floor(Math.random() * queue.length)
         : prev === 0
-          ? playlist.length - 1
+          ? queue.length - 1
           : prev - 1;
-      setCurrentTrack(playlist[newIndex]);
+      setCurrentTrack(queue[newIndex]);
       return newIndex;
     });
   };
@@ -72,7 +77,7 @@ const Controls = () => {
         type="button"
         className="p-2 cursor-pointer rounded-lg hover:bg-accent-foreground/25 transition-colors duration-200 ease-in-out disabled:opacity-50 disabled:cursor-auto"
         onClick={handlePrev}
-        disabled={playlist.length === 0 || (!isRepeat && trackIndex === 0)}
+        disabled={queue.length === 0 || (!isRepeat && trackIndex === 0)}
       >
         <SkipBackIcon fill="#33445c" />
       </button>
@@ -92,7 +97,7 @@ const Controls = () => {
         type="button"
         className="p-2 cursor-pointer rounded-lg hover:bg-accent-foreground/25 transition-colors duration-200 ease-in-out disabled:opacity-50 disabled:cursor-auto"
         onClick={handleNext}
-        disabled={playlist.length === 0 || (!isRepeat && trackIndex === playlist.length - 1)}
+        disabled={queue.length === 0 || (!isRepeat && trackIndex === queue.length - 1)}
       >
         <SkipForwardIcon fill="#33445c" />
       </button>

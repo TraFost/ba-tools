@@ -1,6 +1,7 @@
 import { MainLayout } from "components/layouts/main-layout";
 import { BASE_URL } from "config/constants";
 import { paths } from "config/paths";
+import { StickerIcon } from "lucide-react";
 import { Balsamiq_Sans } from "next/font/google";
 import type { ReactNode } from "react";
 
@@ -25,7 +26,7 @@ const balsamiq_sans = Balsamiq_Sans({
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
-      <MainLayout />
+      <MainLayout titlePage="Sticker Maker" icon={<StickerIcon />} />
 
       {children}
     </>

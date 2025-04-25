@@ -1,16 +1,17 @@
 "use client";
 
-import type { FC, ReactNode } from "react";
+import { useEffect, type FC, type ReactNode } from "react";
 import { Disc3Icon, ListMusicIcon, MicVocalIcon, MusicIcon } from "lucide-react";
 import AsideContent from "components/music/aside-content";
-import { albums } from "@/app/data/dataMusic";
 import AudioPlayer from "components/music/audio-player";
 import MobileNav from "components/music/mobile/mobile-nav";
 import { useMusicContext } from "providers/music-providers";
+import type { IAlbum } from "@/app/type/music-type";
 
 interface IAsideContent {
   text: string;
   icon: ReactNode;
+  href: string;
 }
 
 const asideList = {
@@ -18,49 +19,70 @@ const asideList = {
     {
       icon: <Disc3Icon size={20} />,
       text: "Music Archive",
+      href: "/music",
     },
   ],
   library: [
     {
       icon: <MusicIcon size={20} />,
-      text: "Songs",
+      text: "Musics",
+      href: "/music/tracklist",
     },
     {
       icon: <MicVocalIcon size={20} />,
       text: "Artists",
+      href: "/music/artists",
+    },
+    {
+      icon: <MicVocalIcon size={20} />,
+      text: "Students",
+      href: "/music/students",
     },
   ],
 };
 
 interface Props {
   children: ReactNode;
+  albums: IAlbum[];
 }
 
 const MusicWrapper: FC<Props> = (props) => {
-  const { children } = props;
+  const { children, albums } = props;
   const {
     audioRef,
     currentTrack,
     isShuffle,
     isRepeat,
-    playlist,
+    queue,
+    setQueue,
     setCurrentTrack,
     setTrackIndex,
     trackIndex,
     setIsPlaying,
   } = useMusicContext();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * albums.length);
+    setQueue(albums[randomIndex].tracks);
+    setCurrentTrack(albums[randomIndex].tracks[0]);
+  }, []);
+
   const handleNext = () => {
     setTrackIndex((prev) => {
       const newIndex = isShuffle
-        ? Math.floor(Math.random() * playlist.length)
-        : prev >= playlist.length - 1
+        ? Math.floor(Math.random() * queue.length)
+        : prev >= queue.length - 1
           ? 0
           : prev + 1;
-      setCurrentTrack(playlist[newIndex]);
+      setCurrentTrack(queue[newIndex]);
       return newIndex;
     });
   };
+
+  if (!currentTrack) {
+    return null;
+  }
 
   return (
     <div>
@@ -68,10 +90,10 @@ const MusicWrapper: FC<Props> = (props) => {
       <audio
         preload="metadata"
         key={currentTrack.src}
-        src={`/music/${currentTrack.src}`}
+        src={currentTrack.src}
         ref={audioRef}
         onEnded={() => {
-          if (!isRepeat && playlist.length - 1 === trackIndex && !isShuffle) {
+          if (!isRepeat && queue.length - 1 === trackIndex && !isShuffle) {
             audioRef.current?.pause();
             setIsPlaying(false);
           } else {
@@ -90,7 +112,7 @@ const MusicWrapper: FC<Props> = (props) => {
                 </h2>
                 <div className="flex flex-col gap-0.5">
                   {asideList[val].map((list: IAsideContent) => (
-                    <AsideContent href="/music" text={list.text} key={list.text}>
+                    <AsideContent href={list.href} text={list.text} key={list.text}>
                       {list.icon}
                     </AsideContent>
                   ))}
@@ -100,11 +122,11 @@ const MusicWrapper: FC<Props> = (props) => {
             <div className="flex flex-col gap-1">
               <h2 className="capitalize">Playlist</h2>
               <div className="flex flex-col gap-0.5">
-                {Object.entries(albums).map(([title]) => (
+                {albums.map((album) => (
                   <AsideContent
-                    href={`/music/${title}`}
-                    text={title.replaceAll("-", " ")}
-                    key={title}
+                    href={`/music/${album.title.replaceAll(" ", "-")}`}
+                    text={album.title}
+                    key={album.id}
                   >
                     <ListMusicIcon />
                   </AsideContent>

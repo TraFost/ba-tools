@@ -9,25 +9,16 @@ import {
   type SetStateAction,
   useRef,
 } from "react";
-
-import { songs } from "../data/dataMusic";
-
-export interface Track {
-  title: string;
-  src: string;
-  id: string;
-  artist: string;
-  image: string;
-}
+import type { ITrack } from "../type/music-type";
 
 interface MusicContextType {
   audioRef: React.RefObject<HTMLAudioElement>;
-  currentTrack: Track;
-  setCurrentTrack: Dispatch<SetStateAction<Track | null>>;
+  currentTrack: ITrack;
+  setCurrentTrack: Dispatch<SetStateAction<ITrack | null>>;
   trackIndex: number;
   setTrackIndex: Dispatch<SetStateAction<number>>;
-  playlist: Track[];
-  setPlaylist: Dispatch<SetStateAction<Track[]>>;
+  queue: ITrack[];
+  setQueue: Dispatch<SetStateAction<ITrack[]>>;
   volume: number;
   setVolume: Dispatch<SetStateAction<number>>;
   isPlaying: boolean;
@@ -50,9 +41,9 @@ export const MusicProvider = ({
   children: ReactNode;
 }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [playlist, setPlaylist] = useState<Track[]>(() => [...songs]);
+  const [queue, setQueue] = useState<ITrack[]>([]);
   const [trackIndex, setTrackIndex] = useState<number>(0);
-  const [currentTrack, setCurrentTrack] = useState<Track | null>(playlist[trackIndex]);
+  const [currentTrack, setCurrentTrack] = useState<ITrack | null>(null);
   const [volume, setVolume] = useState<number>(1);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -62,8 +53,8 @@ export const MusicProvider = ({
 
   const contextValue = {
     audioRef,
-    playlist,
-    setPlaylist,
+    queue,
+    setQueue,
     currentTrack,
     setCurrentTrack,
     trackIndex,

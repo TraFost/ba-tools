@@ -1,6 +1,6 @@
 "use client";
 
-import { type Track, useMusicContext } from "providers/music-providers";
+import { useMusicContext } from "providers/music-providers";
 import { DownloadIcon, EllipsisIcon, Share2Icon, Trash2Icon, UserRoundIcon } from "lucide-react";
 import type { FC } from "react";
 import {
@@ -9,26 +9,27 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "components/ui/dropdown-menu";
+import type { ITrack } from "@/app/type/music-type";
 
 interface Props {
   title: string;
   artist: string;
-  music: Track;
+  music: ITrack;
   index: number;
 }
 
 const QueueList: FC<Props> = (props) => {
   const { title, artist, music, index } = props;
 
-  const { setPlaylist, currentTrack, setCurrentTrack, setTrackIndex } = useMusicContext();
+  const { queue, setQueue, currentTrack, setCurrentTrack, setTrackIndex } = useMusicContext();
 
-  const handlePlay = (music: Track, index: number) => {
+  const handlePlay = (music: ITrack, index: number) => {
     setCurrentTrack(music);
     setTrackIndex(index);
   };
 
   const handleRemove = () => {
-    setPlaylist((prev) => prev.filter((track) => track.title !== title));
+    setQueue((prev) => prev.filter((track) => track.title !== title));
   };
 
   return (
@@ -50,8 +51,9 @@ const QueueList: FC<Props> = (props) => {
         <DropdownMenuContent className="font-semibold text-accent bg-white rounded-lg shadow-lg p-4">
           <DropdownMenuItem
             onClick={(e) => {
-              handleRemove();
               e.stopPropagation();
+              if (queue.length === 1) return;
+              handleRemove();
             }}
           >
             <Trash2Icon />

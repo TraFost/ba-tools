@@ -16,11 +16,12 @@ import Controls from "components/music/audio-player/controls";
 import { useMusicContext } from "providers/music-providers";
 import ProgressBar from "components/music/audio-player/progress-bar";
 import QueueList from "components/music/queue-list";
+import { Link } from "components/ui/link";
 
 const AudioPlayer = () => {
   const {
     audioRef,
-    playlist,
+    queue,
     currentTrack,
     setDuration,
     setCurrentTime,
@@ -73,7 +74,11 @@ const AudioPlayer = () => {
         <div className="ml-4 flex gap-4 items-center">
           <div className="w-16 shrink-0">
             <Image
-              src={currentTrack.image}
+              src={
+                currentTrack.image
+                  ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${currentTrack.image}`
+                  : "/icon.png"
+              }
               alt="alt"
               width={128}
               height={128}
@@ -82,7 +87,12 @@ const AudioPlayer = () => {
           </div>
           <div>
             <p className="font-bold text-xl line-clamp-1">{currentTrack.title}</p>
-            <p className="text-accent-foreground font-semibold">{currentTrack.artist}</p>
+            <Link
+              href={`/music/${currentTrack.artist.toLowerCase().replaceAll(" ", "-")}`}
+              className="text-accent-foreground font-semibold hover:underline"
+            >
+              {currentTrack.artist}
+            </Link>
           </div>
         </div>
         <div className="flex flex-col items-center h-full gap-2">
@@ -99,7 +109,7 @@ const AudioPlayer = () => {
                 <DrawerTitle>Queue</DrawerTitle>
               </DrawerHeader>
               <div className="flex flex-col gap-2 overflow-y-auto">
-                {playlist.map((track, index) => (
+                {queue.map((track, index) => (
                   <QueueList
                     key={`${track.id}-${index}`}
                     title={track.title}
@@ -123,7 +133,11 @@ const AudioPlayer = () => {
             <div className="fixed bottom-[84px] z-20 bg-background w-full border-t-2 border-accent-foreground py-2 px-4 flex gap-4 items-center">
               <div className="w-16 rounded-lg overflow-hidden shrink-0">
                 <Image
-                  src={currentTrack.image}
+                  src={
+                    currentTrack.image
+                      ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${currentTrack.image}`
+                      : "/icon.png"
+                  }
                   alt="alt"
                   width={64}
                   height={64}
@@ -138,15 +152,16 @@ const AudioPlayer = () => {
                   <p className="text-accent-foreground font-semibold">{currentTrack.artist}</p>
                 </div>
               </div>
-              {/* <div onClick={(e) => e.stopPropagation()}>
-                <Controls />
-              </div> */}
             </div>
           }
         >
           <div className="flex flex-col gap-4 mx-8">
             <Image
-              src={currentTrack.image}
+              src={
+                currentTrack.image
+                  ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${currentTrack.image}`
+                  : "/icon.png"
+              }
               alt="cover"
               width={256}
               height={256}
