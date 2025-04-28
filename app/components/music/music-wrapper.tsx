@@ -128,7 +128,15 @@ const MusicWrapper: FC<Props> = (props) => {
                     text={album.title}
                     key={album.id}
                   >
-                    <ListMusicIcon />
+                    <img
+                      src={
+                        album.image
+                          ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${album.image}`
+                          : "/icon.png"
+                      }
+                      alt={album.title}
+                      className="w-8 h-8 rounded-md object-cover"
+                    />
                   </AsideContent>
                 ))}
               </div>
