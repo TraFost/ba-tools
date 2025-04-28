@@ -32,7 +32,7 @@ const MusicList: FC<Props> = (props) => {
   const handlePlay = (music: ITrack, index: number) => {
     setCurrentTrack(music);
     setTrackIndex(index);
-    setQueue([music]);
+    setQueue(musicList);
     setIsPlaying(true);
     audioRef.current.play();
   };

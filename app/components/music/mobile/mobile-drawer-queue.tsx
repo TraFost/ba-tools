@@ -5,11 +5,11 @@ import React from "react";
 import QueueList from "../queue-list";
 
 const MobileQueue = () => {
-  const { playlist } = useMusicContext();
+  const { queue } = useMusicContext();
 
   return (
     <div className="flex flex-col gap-2 overflow-y-auto">
-      {playlist.map((track, index) => (
+      {queue.map((track, index) => (
         <QueueList
           key={`${track.id}-${index}`}
           title={track.title}
