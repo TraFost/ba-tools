@@ -117,7 +117,7 @@ const MaintainerInfo: FC<MaintainerInfoProps> = ({ triggerClassName }) => {
             <br />
             <Link
               href="https://github.com/TraFost/ba-tools"
-              className="text-primary hover:underline"
+              className="text-secondary-foreground hover:underline"
               target="_blank"
             >
               View this project on GitHub

@@ -29,7 +29,7 @@ const AlbumImage: FC<Props> = (props) => {
   };
 
   return (
-    <picture className="overflow-hidden rounded-lg relative w-fit max-lg:mx-auto">
+    <div className="overflow-hidden rounded-lg relative w-fit max-lg:mx-auto">
       <Image
         src={src}
         alt={alt}
@@ -42,8 +42,8 @@ const AlbumImage: FC<Props> = (props) => {
         type="button"
         className={
           isVisible
-            ? "absolute bottom-3 right-3 w-12 cursor-pointer aspect-square bg-primary text-primary-foreground rounded-full p-2 flex items-center justify-center transition-all duration-200 hover:scale-110"
-            : "absolute bottom-3 right-3 cursor-pointer w-12 aspect-square bg-primary text-primary-foreground rounded-full p-2 flex items-center justify-center lg:opacity-0 scale-90 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 hover:scale-125"
+            ? "absolute bottom-3 right-3 cursor-pointer w-10 lg:w-12 aspect-square bg-primary text-primary-foreground rounded-full p-2 flex items-center justify-center transition-all duration-200 hover:scale-110"
+            : "absolute bottom-3 right-3 cursor-pointer w-10 lg:w-12 aspect-square bg-primary text-primary-foreground rounded-full p-2 flex items-center justify-center lg:opacity-0 scale-90 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 hover:scale-125"
         }
         onClick={(e) => {
           e.stopPropagation();
@@ -53,7 +53,7 @@ const AlbumImage: FC<Props> = (props) => {
       >
         <PlayIcon fill="#33445c" />
       </button>
-    </picture>
+    </div>
   );
 };
 

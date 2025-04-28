@@ -3,7 +3,10 @@ import { createClient } from "../supabase/server";
 export const getAlbums = async () => {
   const supabase = await createClient();
 
-  const { data: albums } = await supabase.from("albums").select("*");
+  const { data: albums } = await supabase
+    .from("albums")
+    .select("*")
+    .order("id", { ascending: true });
 
   for (const album of albums) {
     const { data: albumTracks } = await supabase
