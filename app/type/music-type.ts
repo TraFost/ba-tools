@@ -11,4 +11,5 @@ export interface IAlbum {
   title: string;
   image: string;
   tracks: ITrack[];
+  path: string;
 }

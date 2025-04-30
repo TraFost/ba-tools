@@ -1,8 +1,8 @@
-import AlbumImage from "@/app/components/music/album-image";
-import MusicList from "@/app/components/music/music-list";
+import AlbumImage from "components/music/album-image";
+import MusicList from "components/music/music-list";
 import { getMusics } from "@/app/lib/fetcher/get-music";
 
-const TracklistPage = async () => {
+const SoundtrackPage = async () => {
   const tracks = await getMusics();
 
   if (!tracks || tracks.length === 0) return <div>No tracks found</div>;
@@ -31,4 +31,4 @@ const TracklistPage = async () => {
   );
 };
 
-export default TracklistPage;
+export default SoundtrackPage;

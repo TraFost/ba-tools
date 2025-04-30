@@ -15,20 +15,17 @@ import NavDrawer from "components/music/nav-drawer";
 import Controls from "components/music/audio-player/controls";
 import { useMusicContext } from "providers/music-providers";
 import ProgressBar from "components/music/audio-player/progress-bar";
-import QueueList from "components/music/queue-list";
 import { Link } from "components/ui/link";
+import { useMusicPlaybackContext } from "@/app/providers/music-playback-provider";
+import QueueItem from "components/music/queue-item";
+import MobilePlayer from "components/music/mobile/mobile-drawer-player";
 
 const AudioPlayer = () => {
-  const {
-    audioRef,
-    queue,
-    currentTrack,
-    setDuration,
-    setCurrentTime,
-    isPlaying,
-    trackIndex,
-    volume,
-  } = useMusicContext();
+  const { audioRef, queue, currentTrack, setDuration, isPlaying, trackIndex } = useMusicContext();
+
+  const { setCurrentTime, volume } = useMusicPlaybackContext();
+
+  const artistPath = currentTrack.artist.toLowerCase().replaceAll(" ", "-");
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -88,7 +85,7 @@ const AudioPlayer = () => {
           <div>
             <p className="font-bold text-xl line-clamp-1">{currentTrack.title}</p>
             <Link
-              href={`/music/${currentTrack.artist.toLowerCase().replaceAll(" ", "-")}`}
+              href={`/music/${artistPath !== "unknown-artist" ? artistPath : "/soundtrack"}`}
               className="text-accent-foreground font-semibold hover:underline"
             >
               {currentTrack.artist}
@@ -110,7 +107,7 @@ const AudioPlayer = () => {
               </DrawerHeader>
               <div className="flex flex-col gap-2 overflow-y-auto">
                 {queue.map((track, index) => (
-                  <QueueList
+                  <QueueItem
                     key={`${track.id}-${index}`}
                     title={track.title}
                     artist={track.artist}
@@ -155,28 +152,7 @@ const AudioPlayer = () => {
             </div>
           }
         >
-          <div className="flex flex-col gap-4 mx-8">
-            <Image
-              src={
-                currentTrack.image
-                  ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${currentTrack.image}`
-                  : "/icon.png"
-              }
-              alt="cover"
-              width={256}
-              height={256}
-              className="aspect-square object-cover rounded-xl mx-auto"
-              draggable={false}
-            />
-            <div>
-              <p className="text-2xl font-bold line-clamp-1">{currentTrack.title}</p>
-              <p className="text-xl font-semibold text-accent-foreground">{currentTrack.artist}</p>
-            </div>
-            <div>
-              <ProgressBar />
-              <Controls />
-            </div>
-          </div>
+          <MobilePlayer />
         </NavDrawer>
       </div>
     </>

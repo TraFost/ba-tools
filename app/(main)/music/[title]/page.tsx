@@ -10,7 +10,7 @@ const AlbumPage = async ({
 }) => {
   const { title } = await params;
 
-  const album: IAlbum = await getAlbumByTitle(title.replaceAll("-", " "));
+  const album: IAlbum = await getAlbumByTitle(title);
 
   if (!album) <div>No album found</div>;
 

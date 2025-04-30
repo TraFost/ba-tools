@@ -19,12 +19,8 @@ interface MusicContextType {
   setTrackIndex: Dispatch<SetStateAction<number>>;
   queue: ITrack[];
   setQueue: Dispatch<SetStateAction<ITrack[]>>;
-  volume: number;
-  setVolume: Dispatch<SetStateAction<number>>;
   isPlaying: boolean;
   setIsPlaying: Dispatch<SetStateAction<boolean>>;
-  currentTime: number;
-  setCurrentTime: Dispatch<SetStateAction<number>>;
   duration: number;
   setDuration: Dispatch<SetStateAction<number>>;
   isShuffle: boolean;
@@ -44,9 +40,7 @@ export const MusicProvider = ({
   const [queue, setQueue] = useState<ITrack[]>([]);
   const [trackIndex, setTrackIndex] = useState<number>(0);
   const [currentTrack, setCurrentTrack] = useState<ITrack | null>(null);
-  const [volume, setVolume] = useState<number>(1);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
   const [isShuffle, setIsShuffle] = useState<boolean>(false);
   const [isRepeat, setIsRepeat] = useState<boolean>(true);
@@ -59,12 +53,8 @@ export const MusicProvider = ({
     setCurrentTrack,
     trackIndex,
     setTrackIndex,
-    volume,
-    setVolume,
     isPlaying,
     setIsPlaying,
-    currentTime,
-    setCurrentTime,
     duration,
     setDuration,
     isShuffle,

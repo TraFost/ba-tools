@@ -22,7 +22,7 @@ export const MainLayout: FC<Props> = (props) => {
         <div className="flex items-center gap-2">
           <div className="bg-primary text-accent p-2 rounded-lg rotate-6 shadow-sm">{icon}</div>
           <div>
-            <p className="text-2xl font-bold text-secondary flex items-center">
+            <p className="text-lg lg:text-2xl font-bold text-secondary flex items-center">
               Blue Archive Tools
             </p>
             <p className="text-xs text-secondary/70 -mt-1">{titlePage}</p>

@@ -1,8 +1,10 @@
+import { useMusicPlaybackContext } from "@/app/providers/music-playback-provider";
 import { CustomSlider } from "components/ui/slider";
 import { useMusicContext } from "providers/music-providers";
 
 const ProgressBar = () => {
-  const { currentTime, duration, audioRef, setCurrentTime } = useMusicContext();
+  const { duration, audioRef } = useMusicContext();
+  const { currentTime, setCurrentTime } = useMusicPlaybackContext();
 
   const handleSeek = (value: number[]) => {
     if (audioRef.current && duration) {

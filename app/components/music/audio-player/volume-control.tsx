@@ -1,12 +1,12 @@
-"use client";
-
 import { Volume1Icon, Volume2Icon, VolumeXIcon } from "lucide-react";
 import { CustomSlider } from "components/ui/slider";
 import { useMusicContext } from "providers/music-providers";
 import { useState } from "react";
+import { useMusicPlaybackContext } from "@/app/providers/music-playback-provider";
 
 const VolumeControl = () => {
-  const { audioRef, volume, setVolume } = useMusicContext();
+  const { audioRef } = useMusicContext();
+  const { volume, setVolume } = useMusicPlaybackContext();
 
   const [prevVolume, setPrevVolume] = useState<number>(1);
 

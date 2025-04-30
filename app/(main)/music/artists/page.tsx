@@ -1,5 +1,5 @@
-import AlbumImage from "@/app/components/music/album-image";
-import { Link } from "@/app/components/ui/link";
+import AlbumImage from "components/music/album-image";
+import { Link } from "components/ui/link";
 import { getAlbumByArtist } from "@/app/lib/fetcher/get-album";
 import type { IAlbum } from "@/app/type/music-type";
 

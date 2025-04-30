@@ -1,7 +1,5 @@
-"use client";
-
 import { useMusicContext } from "providers/music-providers";
-import { DownloadIcon, EllipsisIcon, Share2Icon, Trash2Icon, UserRoundIcon } from "lucide-react";
+import { DownloadIcon, EllipsisIcon, Trash2Icon, UserRoundIcon } from "lucide-react";
 import type { FC } from "react";
 import {
   DropdownMenu,
@@ -18,10 +16,11 @@ interface Props {
   index: number;
 }
 
-const QueueList: FC<Props> = (props) => {
+const QueueItem: FC<Props> = (props) => {
   const { title, artist, music, index } = props;
 
   const { queue, setQueue, currentTrack, setCurrentTrack, setTrackIndex } = useMusicContext();
+  console.log(currentTrack);
 
   const handlePlay = (music: ITrack, index: number) => {
     setCurrentTrack(music);
@@ -67,14 +66,10 @@ const QueueList: FC<Props> = (props) => {
             <UserRoundIcon />
             <span>Go to composer</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-            <Share2Icon />
-            <span>Share</span>
-          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </button>
   );
 };
 
-export default QueueList;
+export default QueueItem;

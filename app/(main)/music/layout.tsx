@@ -2,7 +2,6 @@ import { MainLayout } from "components/layouts/main-layout";
 import { BASE_URL } from "config/constants";
 import { paths } from "config/paths";
 import type { ReactNode } from "react";
-import { MusicProvider } from "providers/music-providers";
 import MusicWrapperProvider from "components/music/music-wrapper-provider";
 import { MusicIcon } from "lucide-react";
 
@@ -21,9 +20,9 @@ export const metadata = {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <MusicProvider>
+    <>
       <MainLayout titlePage="Music Archive" icon={<MusicIcon />} />
       <MusicWrapperProvider>{children}</MusicWrapperProvider>
-    </MusicProvider>
+    </>
   );
 }

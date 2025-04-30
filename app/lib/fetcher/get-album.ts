@@ -1,41 +1,48 @@
-import { createClient } from "../supabase/server";
+import type { ITrack } from "@/app/type/music-type";
+import { createClient } from "@/app/lib/supabase/server";
+
+function extractNumberFromId(title: string): number {
+  const match = title.match(/\d+/);
+  return match ? Number.parseInt(match[0], 10) : 0;
+}
+
+function sortTracksById(tracks: ITrack[]): ITrack[] {
+  return tracks.slice().sort((a, b) => {
+    const numA = extractNumberFromId(a.id);
+    const numB = extractNumberFromId(b.id);
+    return numA - numB;
+  });
+}
 
 export const getAlbums = async () => {
   const supabase = await createClient();
 
   const { data: albums } = await supabase
     .from("albums")
-    .select("*")
+    .select("*, album_tracks(musics(*))")
     .order("id", { ascending: true });
 
-  for (const album of albums) {
-    const { data: albumTracks } = await supabase
-      .from("album_tracks")
-      .select("musics(*)")
-      .eq("album_id", album.id);
-    if (albumTracks) {
-      album.tracks = albumTracks.map((track) => track.musics);
-    }
-  }
+  const result = albums.map((album) => ({
+    ...album,
+    tracks: sortTracksById(album.album_tracks.map((t: { musics: ITrack }) => t.musics)),
+  }));
 
-  return albums;
+  return result;
 };
 
 export const getAlbumByTitle = async (title: string) => {
   const supabase = await createClient();
 
-  const { data: album } = await supabase.from("albums").select().eq("title", title).single();
+  const { data: album } = await supabase
+    .from("albums")
+    .select("*, album_tracks(musics(*))")
+    .eq("path", title)
+    .single();
 
-  const { data: albumTracks } = await supabase
-    .from("album_tracks")
-    .select("musics(*)")
-    .eq("album_id", album.id);
-
-  if (albumTracks) {
-    album.tracks = albumTracks.map((track) => track.musics);
-  }
-
-  return album;
+  return {
+    ...album,
+    tracks: sortTracksById(album.album_tracks.map((t: { musics: ITrack }) => t.musics)),
+  };
 };
 
 export const getAlbumByArtist = async () => {
@@ -56,17 +63,13 @@ export const getAlbumByArtist = async () => {
 
   const filter = artistName.map((name) => `title.ilike.%${name}%`).join(",");
 
-  const { data: albums } = await supabase.from("albums").select("*").or(filter);
+  const { data: albums } = await supabase
+    .from("albums")
+    .select("*, album_tracks(musics(*))")
+    .or(filter);
 
-  for (const album of albums) {
-    const { data: albumTracks } = await supabase
-      .from("album_tracks")
-      .select("musics(*)")
-      .eq("album_id", album.id);
-    if (albumTracks) {
-      album.tracks = albumTracks.map((track) => track.musics);
-    }
-  }
-
-  return albums;
+  return albums.map((album) => ({
+    ...album,
+    tracks: sortTracksById(album.album_tracks.map((t: { musics: ITrack }) => t.musics)),
+  }));
 };

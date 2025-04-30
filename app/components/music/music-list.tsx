@@ -1,141 +1,80 @@
 "use client";
 
-import { useMusicContext } from "providers/music-providers";
+import { useRef, useState } from "react";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
+import TrackItem from "components/music/track-item";
 import type { ITrack } from "@/app/type/music-type";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "components/ui/dropdown-menu";
-import {
-  DownloadIcon,
-  EllipsisIcon,
-  ListMusicIcon,
-  PlayIcon,
-  Share2Icon,
-  UserRoundIcon,
-} from "lucide-react";
-import type { FC } from "react";
-import { Link } from "components/ui/link";
+import { Input } from "components/ui/input";
 
 interface Props {
   musicList: ITrack[];
 }
 
-const MusicList: FC<Props> = (props) => {
-  const { musicList } = props;
+const MusicList = ({ musicList }: Props) => {
+  const parentRef = useRef<HTMLDivElement>(null);
+  const [search, setSearch] = useState<string>("");
+  const [filteredMusicList, setFilteredMusicList] = useState<ITrack[]>(musicList);
 
-  const { setCurrentTrack, setTrackIndex, setQueue, currentTrack, audioRef, setIsPlaying } =
-    useMusicContext();
-
-  const handlePlay = (music: ITrack, index: number) => {
-    setCurrentTrack(music);
-    setTrackIndex(index);
-    setQueue(musicList);
-    setIsPlaying(true);
-    audioRef.current.play();
-  };
-
-  const downloadMusic = async (music: ITrack) => {
-    try {
-      const response = await fetch(music.src);
-
-      if (!response.ok) throw new Error("Failed to download file");
-
-      const blob = await response.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = blobUrl;
-      a.download = `${music.artist} - ${music.title}.ogg`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      console.error("Download failed:", error);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === "") {
+      setFilteredMusicList(musicList);
+      setSearch("");
+      return;
     }
+
+    setSearch(value);
+
+    const filteredMusicList = musicList.filter(
+      (music) =>
+        music.title.toLowerCase().includes(value.toLowerCase()) ||
+        music.artist.toLowerCase().includes(value.toLowerCase()),
+    );
+
+    setFilteredMusicList(filteredMusicList);
   };
+
+  const virtualizer = useWindowVirtualizer({
+    count: filteredMusicList.length,
+    estimateSize: () => 72,
+    overscan: 10,
+  });
 
   return (
-    <div>
-      {musicList?.map((music: ITrack, index: number) => (
-        <button
-          type="button"
-          key={music.src}
-          onClick={() => handlePlay(music, index)}
-          className={`w-full text-accent cursor-pointer flex justify-between items-center rounded-xl px-3 py-3 hover:bg-primary/25 group ${currentTrack.title === music.title ? "bg-primary/25" : ""}`}
-        >
-          <div className="flex items-center gap-6">
-            <div className="w-6 flex justify-center items-center max-lg:hidden">
-              <p className="text-lg font-semibold group-hover:hidden">{index + 1}</p>
-              <PlayIcon size={20} fill="#4c5b6d" className="hidden group-hover:block" />
+    <div ref={parentRef}>
+      <Input
+        type="search"
+        placeholder="Search music..."
+        value={search}
+        onChange={handleSearch}
+        className="w-96 max-w-full mb-4"
+      />
+      <div
+        style={{
+          height: virtualizer.getTotalSize(),
+          width: "100%",
+          position: "relative",
+        }}
+      >
+        {virtualizer.getVirtualItems().map((virtualRow) => {
+          const music = filteredMusicList[virtualRow.index];
+
+          return (
+            <div
+              key={music.src}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                transform: `translateY(${virtualRow.start}px)`,
+              }}
+            >
+              <TrackItem music={music} index={virtualRow.index} musicList={musicList} />
             </div>
-            <div className="flex items-center gap-2">
-              <div className="shrink-0">
-                <img
-                  src={
-                    music.image
-                      ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${music.image}`
-                      : "/icon.png"
-                  }
-                  alt={music.title}
-                  className="w-12 h-12 rounded-lg object-cover"
-                />
-              </div>
-              <div>
-                <p className="lg:text-lg font-bold max-lg:line-clamp-1 text-left">{music.title}</p>
-                <p className="text-accent-foreground text-sm font-semibold w-fit text-left">
-                  {music.artist}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <p className="text-accent-foreground text-sm">2:37</p>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <div className="hover:bg-black/10 rounded-full p-1.5">
-                  <EllipsisIcon />
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="font-semibold text-accent bg-white rounded-lg shadow-lg p-4">
-                <DropdownMenuItem
-                  onClick={(e) => {
-                    setQueue((track) =>
-                      track.find((item) => item.src === music.src) ? track : [...track, music],
-                    );
-                    e.stopPropagation();
-                  }}
-                >
-                  <ListMusicIcon />
-                  <span>Add to queue</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    downloadMusic(music);
-                  }}
-                >
-                  <DownloadIcon />
-                  <span>Download music</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild onClick={(e) => e.stopPropagation()}>
-                  <Link href={`/music/${music.artist.replaceAll(" ", "-").toLocaleLowerCase()}`}>
-                    <UserRoundIcon />
-                    <span>Go to composer</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-                  <Share2Icon />
-                  <span>Share</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </button>
-      ))}
+          );
+        })}
+      </div>
     </div>
   );
 };

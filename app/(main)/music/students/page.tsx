@@ -1,15 +1,16 @@
-import MusicList from "@/app/components/music/music-list";
-import { createClient } from "@/app/lib/supabase/server";
+import StudentList from "components/music/student/student-list";
+import { getStudents } from "@/app/lib/fetcher/get-student";
+import type { IStudent } from "@/app/type/student-type";
 
 const StudentsPage = async () => {
-  const supabase = await createClient();
-  const { data: tracks } = await supabase.from("musics").select("*");
-
-  if (!tracks || tracks.length === 0) return <div>No tracks found</div>;
+  const students: IStudent[] = await getStudents();
 
   return (
-    <div>
-      <MusicList musicList={tracks} />
+    <div className="w-full">
+      <h2 className="text-4xl font-bold mb-4">Memorial Lobby Theme</h2>
+      <div>
+        <StudentList students={students} />
+      </div>
     </div>
   );
 };

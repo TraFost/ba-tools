@@ -7,9 +7,9 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../ui/carousel";
-import { Link } from "../ui/link";
-import AlbumImage from "./album-image";
+} from "components/ui/carousel";
+import { Link } from "components/ui/link";
+import AlbumImage from "components/music/album-image";
 import type { IAlbum } from "@/app/type/music-type";
 
 interface Props {
@@ -40,10 +40,10 @@ const CarouselMusic: FC<Props> = (props) => {
             artistName.includes(album.title.toLowerCase()) && (
               <CarouselItem
                 key={album.id}
-                className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6"
+                className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5"
               >
                 <Link
-                  href={`/music/${album.title.replaceAll(" ", "-")}`}
+                  href={`/music/${album.path}`}
                   className="flex flex-col gap-2 hover:bg-primary/50 rounded-xl p-2 group transition-colors duration-200"
                   draggable={false}
                 >

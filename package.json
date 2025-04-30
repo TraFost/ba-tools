@@ -23,6 +23,7 @@
 		"@supabase/ssr": "^0.6.1",
 		"@supabase/supabase-js": "^2.49.3",
 		"@tailwindcss/postcss": "^4.0.8",
+		"@tanstack/react-virtual": "^3.13.6",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"embla-carousel-react": "^8.6.0",
