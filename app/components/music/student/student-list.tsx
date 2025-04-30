@@ -3,8 +3,8 @@
 import type { IStudent } from "@/app/type/student-type";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useRef, useState } from "react";
-import StudentItem from "./student-item";
-import { Input } from "../../ui/input";
+import StudentItem from "components/music/student/student-item";
+import { Input } from "components/ui/input";
 
 interface Props {
   students: IStudent[];
@@ -29,8 +29,10 @@ const StudentList: React.FC<Props> = (props) => {
 
     setSearch(value);
 
-    const filteredMusicList = students.filter((student) =>
-      student.name.toLowerCase().includes(value.toLowerCase()),
+    const filteredMusicList = students.filter(
+      (student) =>
+        student.name.toLowerCase().includes(value.toLowerCase()) ||
+        student.track.title.toLowerCase().includes(value.toLowerCase()),
     );
 
     setFilteredStudent(filteredMusicList);
