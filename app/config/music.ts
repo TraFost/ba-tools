@@ -12,5 +12,5 @@ export const artistName = [
   "yui ogura",
   "lee jin ah",
   "kano",
-  "yoonha",
+  "younha",
 ];
