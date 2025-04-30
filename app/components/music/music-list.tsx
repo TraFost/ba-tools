@@ -28,7 +28,8 @@ const MusicList = ({ musicList }: Props) => {
     const filteredMusicList = musicList.filter(
       (music) =>
         music.title.toLowerCase().includes(value.toLowerCase()) ||
-        music.artist.toLowerCase().includes(value.toLowerCase()),
+        music.artist.toLowerCase().includes(value.toLowerCase()) ||
+        music.id.toLowerCase().includes(value.toLowerCase()),
     );
 
     setFilteredMusicList(filteredMusicList);

@@ -8,6 +8,9 @@ import {
   DropdownMenuTrigger,
 } from "components/ui/dropdown-menu";
 import type { ITrack } from "@/app/type/music-type";
+import { Link } from "components/ui/link";
+import { artistName } from "@/app/config/music";
+import { playTrack } from "@/app/lib/music/playTrack";
 
 interface Props {
   title: string;
@@ -18,14 +21,11 @@ interface Props {
 
 const QueueItem: FC<Props> = (props) => {
   const { title, artist, music, index } = props;
+  const context = useMusicContext();
 
-  const { queue, setQueue, currentTrack, setCurrentTrack, setTrackIndex } = useMusicContext();
-  console.log(currentTrack);
+  const { queue, setQueue, currentTrack } = context;
 
-  const handlePlay = (music: ITrack, index: number) => {
-    setCurrentTrack(music);
-    setTrackIndex(index);
-  };
+  const artists = music.artist.split(", ");
 
   const handleRemove = () => {
     setQueue((prev) => prev.filter((track) => track.title !== title));
@@ -34,7 +34,7 @@ const QueueItem: FC<Props> = (props) => {
   return (
     <button
       type="button"
-      onClick={() => handlePlay(music, index)}
+      onClick={() => playTrack(context, music, index)}
       className={`flex items-center justify-between gap-4 w-full cursor-pointer hover:bg-primary/25 rounded-xl p-4 text-left ${currentTrack.title === title ? "bg-primary/25" : ""}`}
     >
       <div>
@@ -62,9 +62,13 @@ const QueueItem: FC<Props> = (props) => {
             <DownloadIcon />
             <span>Download music</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-            <UserRoundIcon />
-            <span>Go to composer</span>
+          <DropdownMenuItem asChild onClick={(e) => e.stopPropagation()}>
+            <Link
+              href={`/music/${artistName.includes(artists[0].toLowerCase()) ? artists[0].toLowerCase().replaceAll(" ", "-") : "soundtrack"}`}
+            >
+              <UserRoundIcon />
+              <span>Go to composer</span>
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

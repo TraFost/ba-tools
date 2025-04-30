@@ -1,6 +1,6 @@
 import AlbumImage from "components/music/album-image";
 import { Link } from "components/ui/link";
-import { getAlbumByArtist } from "@/app/lib/fetcher/get-album";
+import { getAlbumByArtist } from "@/app/lib/fetcher/getAlbum";
 import type { IAlbum } from "@/app/type/music-type";
 
 const ArtistsPage = async () => {
@@ -10,7 +10,7 @@ const ArtistsPage = async () => {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 lg:gap-4">
       {albums.map((album: IAlbum) => (
         <Link
-          href={`/music/${album.title.replaceAll(" ", "-")}`}
+          href={`/music/${album.path}`}
           key={album.id}
           className="flex flex-col gap-2 hover:bg-primary/50 rounded-xl p-2 group transition-colors duration-200"
           draggable={false}

@@ -1,6 +1,6 @@
 import AlbumImage from "components/music/album-image";
 import MusicList from "components/music/music-list";
-import { getAlbumByTitle } from "@/app/lib/fetcher/get-album";
+import { getAlbumByTitle } from "@/app/lib/fetcher/getAlbum";
 import type { IAlbum } from "@/app/type/music-type";
 
 const AlbumPage = async ({

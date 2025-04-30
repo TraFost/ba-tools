@@ -1,5 +1,5 @@
 import StudentList from "components/music/student/student-list";
-import { getStudents } from "@/app/lib/fetcher/get-student";
+import { getStudents } from "@/app/lib/fetcher/getStudent";
 import type { IStudent } from "@/app/type/student-type";
 
 const StudentsPage = async () => {

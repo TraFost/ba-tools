@@ -19,13 +19,14 @@ import { Link } from "components/ui/link";
 import { useMusicPlaybackContext } from "@/app/providers/music-playback-provider";
 import QueueItem from "components/music/queue-item";
 import MobilePlayer from "components/music/mobile/mobile-drawer-player";
+import { artistName } from "@/app/config/music";
 
 const AudioPlayer = () => {
   const { audioRef, queue, currentTrack, setDuration, isPlaying, trackIndex } = useMusicContext();
 
-  const { setCurrentTime, volume } = useMusicPlaybackContext();
+  const artist = currentTrack.artist.split(", ");
 
-  const artistPath = currentTrack.artist.toLowerCase().replaceAll(" ", "-");
+  const { setCurrentTime, volume } = useMusicPlaybackContext();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -84,12 +85,24 @@ const AudioPlayer = () => {
           </div>
           <div>
             <p className="font-bold text-xl line-clamp-1">{currentTrack.title}</p>
-            <Link
-              href={`/music/${artistPath !== "unknown-artist" ? artistPath : "/soundtrack"}`}
+            {artist.map((name, index) => (
+              <span key={name}>
+                <Link
+                  key={name}
+                  href={`/music/${artistName.includes(name.toLowerCase()) ? name.toLowerCase().replaceAll(" ", "-") : "soundtrack"}`}
+                  className="text-accent-foreground font-semibold hover:underline"
+                >
+                  {name}
+                  {index !== artist.length - 1 && ", "}
+                </Link>
+              </span>
+            ))}
+            {/* <Link
+              href={`/music/${artistName.includes(artistPath) ? artistPath : "/soundtrack"}`}
               className="text-accent-foreground font-semibold hover:underline"
             >
               {currentTrack.artist}
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="flex flex-col items-center h-full gap-2">

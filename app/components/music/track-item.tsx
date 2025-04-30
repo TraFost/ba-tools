@@ -11,6 +11,8 @@ import {
 import { useMusicContext } from "providers/music-providers";
 import { Link } from "components/ui/link";
 import type { ITrack } from "@/app/type/music-type";
+import { artistName } from "@/app/config/music";
+import { playTrack } from "@/app/lib/music/playTrack";
 
 interface Props {
   music: ITrack;
@@ -19,20 +21,12 @@ interface Props {
 }
 
 const TrackItem = ({ music, index, musicList }: Props) => {
-  const { setCurrentTrack, setTrackIndex, setQueue, currentTrack, audioRef, setIsPlaying } =
-    useMusicContext();
+  const context = useMusicContext();
+  const { setQueue, currentTrack } = context;
 
   const isCurrent = currentTrack?.title === music.title;
 
-  const artistPath = music.artist.toLowerCase().replaceAll(" ", "-");
-
-  const handlePlay = () => {
-    setCurrentTrack(music);
-    setTrackIndex(index);
-    setQueue(musicList);
-    setIsPlaying(true);
-    audioRef.current?.play();
-  };
+  const artist = music.artist.split(", ");
 
   const downloadMusic = async () => {
     const response = await fetch(music.src);
@@ -50,7 +44,7 @@ const TrackItem = ({ music, index, musicList }: Props) => {
   return (
     <button
       type="button"
-      onClick={handlePlay}
+      onClick={() => playTrack(context, music, index, musicList)}
       className={`w-full text-accent cursor-pointer flex justify-between items-center rounded-xl px-3 py-3 hover:bg-primary/25 group ${isCurrent ? "bg-primary/25" : ""}`}
     >
       <div className="flex items-center gap-6">
@@ -109,7 +103,9 @@ const TrackItem = ({ music, index, musicList }: Props) => {
               <span>Download</span>
             </DropdownMenuItem>
             <DropdownMenuItem asChild onClick={(e) => e.stopPropagation()}>
-              <Link href={`/music/${artistPath !== "unknown-artist" ? artistPath : "/soundtrack"}`}>
+              <Link
+                href={`/music/${artistName.includes(artist[0].toLowerCase()) ? artist[0].toLowerCase().replaceAll(" ", "-") : "soundtrack"}`}
+              >
                 <UserRoundIcon />
                 <span>Go to composer</span>
               </Link>

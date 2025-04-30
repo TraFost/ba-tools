@@ -11,7 +11,7 @@ import {
 } from "react";
 import type { ITrack } from "../type/music-type";
 
-interface MusicContextType {
+export interface MusicContextType {
   audioRef: React.RefObject<HTMLAudioElement>;
   currentTrack: ITrack;
   setCurrentTrack: Dispatch<SetStateAction<ITrack | null>>;

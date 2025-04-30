@@ -1,6 +1,6 @@
 import AlbumImage from "components/music/album-image";
 import MusicList from "components/music/music-list";
-import { getMusics } from "@/app/lib/fetcher/get-music";
+import { getMusics } from "@/app/lib/fetcher/getMusic";
 
 const SoundtrackPage = async () => {
   const tracks = await getMusics();

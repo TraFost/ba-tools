@@ -3,11 +3,11 @@ import AlbumImage from "components/music/album-image";
 import CarouselMusic from "components/music/carousel-music";
 import StudentItem from "components/music/student/student-item";
 import TrackItem from "components/music/track-item";
-import { getAlbums } from "@/app/lib/fetcher/get-album";
+import { getAlbums } from "@/app/lib/fetcher/getAlbum";
 import type { IAlbum } from "@/app/type/music-type";
-import { artistName } from "@/app/config/constants";
-import { getSomeMusics } from "@/app/lib/fetcher/get-music";
-import { getSomeStudents } from "@/app/lib/fetcher/get-student";
+import { artistName } from "@/app/config/music";
+import { getSomeMusics } from "@/app/lib/fetcher/getMusic";
+import { getSomeStudents } from "@/app/lib/fetcher/getStudent";
 
 const MusicPage = async () => {
   const albums = await getAlbums();

@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import MusicWrapper from "components/music/music-wrapper";
-import { getAlbums } from "@/app/lib/fetcher/get-album";
+import { getAlbums } from "@/app/lib/fetcher/getAlbum";
 import { MusicProvider } from "@/app/providers/music-providers";
 import { MusicPlaybackProvider } from "@/app/providers/music-playback-provider";
 

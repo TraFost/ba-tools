@@ -11,23 +11,11 @@ import {
 import { Link } from "components/ui/link";
 import AlbumImage from "components/music/album-image";
 import type { IAlbum } from "@/app/type/music-type";
+import { artistName } from "@/app/config/music";
 
 interface Props {
   albums: IAlbum[];
 }
-
-const artistName = [
-  "mitsukiyo",
-  "karut",
-  "nor",
-  "aiobahn",
-  "emocosine",
-  "synthion",
-  "7mai",
-  "yuc'e",
-  "ariuei",
-  "hatsune miku",
-];
 
 const CarouselMusic: FC<Props> = (props) => {
   const { albums } = props;

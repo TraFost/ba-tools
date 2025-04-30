@@ -1,18 +1,7 @@
 import type { ITrack } from "@/app/type/music-type";
 import { createClient } from "@/app/lib/supabase/server";
-
-function extractNumberFromId(title: string): number {
-  const match = title.match(/\d+/);
-  return match ? Number.parseInt(match[0], 10) : 0;
-}
-
-function sortTracksById(tracks: ITrack[]): ITrack[] {
-  return tracks.slice().sort((a, b) => {
-    const numA = extractNumberFromId(a.id);
-    const numB = extractNumberFromId(b.id);
-    return numA - numB;
-  });
-}
+import { artistName } from "@/app/config/music";
+import { sortTracksById } from "../music/sortTracks";
 
 export const getAlbums = async () => {
   const supabase = await createClient();
@@ -46,19 +35,6 @@ export const getAlbumByTitle = async (title: string) => {
 };
 
 export const getAlbumByArtist = async () => {
-  const artistName = [
-    "mitsukiyo",
-    "karut",
-    "nor",
-    "aiobahn",
-    "emocosine",
-    "synthion",
-    "7mai",
-    "yuc'e",
-    "ariuei",
-    "hatsune miku",
-  ];
-
   const supabase = await createClient();
 
   const filter = artistName.map((name) => `title.ilike.%${name}%`).join(",");
@@ -66,6 +42,7 @@ export const getAlbumByArtist = async () => {
   const { data: albums } = await supabase
     .from("albums")
     .select("*, album_tracks(musics(*))")
+    .order("id", { ascending: true })
     .or(filter);
 
   return albums.map((album) => ({

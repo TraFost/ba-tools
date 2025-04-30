@@ -5,6 +5,7 @@ import { PlayIcon } from "lucide-react";
 import Image from "next/image";
 import type { FC } from "react";
 import type { ITrack } from "@/app/type/music-type";
+import { playTrack } from "@/app/lib/music/playTrack";
 
 interface Props {
   src: string;
@@ -18,15 +19,7 @@ interface Props {
 const AlbumImage: FC<Props> = (props) => {
   const { src, alt, width, height, isVisible, music } = props;
 
-  const { setCurrentTrack, setTrackIndex, setQueue, audioRef, setIsPlaying } = useMusicContext();
-
-  const handlePlay = (music: ITrack[]) => {
-    setQueue(music);
-    setTrackIndex(0);
-    setCurrentTrack(music[0]);
-    audioRef.current?.play();
-    setIsPlaying(true);
-  };
+  const context = useMusicContext();
 
   return (
     <div className="overflow-hidden rounded-lg relative w-fit max-lg:mx-auto">
@@ -48,7 +41,7 @@ const AlbumImage: FC<Props> = (props) => {
         onClick={(e) => {
           e.stopPropagation();
           e.nativeEvent.preventDefault();
-          handlePlay(music);
+          playTrack(context, music[0], 0, music);
         }}
       >
         <PlayIcon fill="#33445c" />

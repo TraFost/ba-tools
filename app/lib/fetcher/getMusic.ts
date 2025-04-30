@@ -1,18 +1,5 @@
-import type { ITrack } from "@/app/type/music-type";
 import { createClient } from "@/app/lib/supabase/server";
-
-function extractNumberFromTitle(title: string): number {
-  const match = title.match(/\d+/);
-  return match ? Number.parseInt(match[0], 10) : 0;
-}
-
-function sortTracksById(tracks: ITrack[]): ITrack[] {
-  return tracks.slice().sort((a, b) => {
-    const numA = extractNumberFromTitle(a.id);
-    const numB = extractNumberFromTitle(b.id);
-    return numA - numB;
-  });
-}
+import { sortTracksById } from "../music/sortTracks";
 
 export const getMusics = async () => {
   const supabase = await createClient();
