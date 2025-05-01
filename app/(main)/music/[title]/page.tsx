@@ -3,16 +3,12 @@ import MusicList from "components/music/music-list";
 import { getAlbumByTitle } from "@/app/lib/fetcher/getAlbum";
 import type { IAlbum } from "@/app/type/music-type";
 
-const AlbumPage = async ({
-  params,
-}: {
-  params: Promise<{ title: string }>;
-}) => {
+const AlbumPage = async ({ params }) => {
   const { title } = await params;
 
   const album: IAlbum = await getAlbumByTitle(title);
 
-  if (!album) <div>No album found</div>;
+  if (!album) return <div>No album found</div>;
 
   return (
     <div className="w-full flex flex-col gap-4">
