@@ -22,7 +22,7 @@ export const metadata = {
     title: "Blue Archive Tools - Music Archive",
     description: "Tools for listening to Blue Archive Soundtrack.",
     url: `${BASE_URL}${paths.music.getHref()}`,
-    images: [{ url: `${BASE_URL}/ost.png` }],
+    images: [{ url: `${BASE_URL}/ost.jpg` }],
   },
 };
 
