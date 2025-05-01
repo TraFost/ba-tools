@@ -1,5 +1,4 @@
 {
-	"rewrites": [{ "source": "/((?!api/).*)", "destination": "/404" }],
 	"version": 2,
 	"buildCommand": "pnpm build",
 	"devCommand": "pnpm dev",
