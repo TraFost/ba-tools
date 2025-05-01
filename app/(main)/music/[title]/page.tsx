@@ -1,5 +1,7 @@
-import { albums, songs as songList } from "@/app/data/dataMusic";
-import Image from "next/image";
+import AlbumImage from "components/music/album-image";
+import MusicList from "components/music/music-list";
+import { getAlbumByTitle } from "@/app/lib/fetcher/getAlbum";
+import type { IAlbum } from "@/app/type/music-type";
 
 const AlbumPage = async ({
   params,
@@ -7,47 +9,37 @@ const AlbumPage = async ({
   params: Promise<{ title: string }>;
 }) => {
   const { title } = await params;
-  const { image, songs } = albums[title];
+
+  const album: IAlbum = await getAlbumByTitle(title);
+
+  if (!album) <div>No album found</div>;
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="flex gap-4">
-        <Image
-          src={image}
-          alt={title}
-          width={256}
-          height={256}
-          className="aspect-square object-cover rounded-lg w-52"
-        />
-        <div className="flex flex-col justify-center">
+      <div className="flex max-lg:flex-col gap-4">
+        <picture className="w-full max-w-52 max-lg:mx-auto">
+          <AlbumImage
+            music={album.tracks}
+            src={
+              album.image
+                ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${album.image}`
+                : "/icon.png"
+            }
+            alt={title}
+            width={720}
+            height={720}
+            isVisible={true}
+          />
+        </picture>
+        <div className="flex flex-col justify-end gap-1 lg:gap-3">
           <p className="text-accent-foreground font-semibold">Playlist</p>
-          <p className="capitalize text-3xl font-bold text-accent">{title.replaceAll("-", " ")}</p>
-          <p className="text-accent-foreground font-semibold text-lg">{songs.length} tracks</p>
+          <p className="capitalize text-4xl font-bold text-accent">{album.title}</p>
+          <p className="text-accent-foreground font-semibold text-lg">
+            {album.tracks.length} tracks
+          </p>
         </div>
       </div>
-      <div>
-        <div className="flex items-center gap-6 px-6 py-3 hover:bg-primary/25">
-          <p className="text-lg font-semibold">1</p>
-          <div>
-            <p className="text-lg font-semibold text-accent">Usagi Flap</p>
-            <p className="text-accent-foreground text-sm">Mitsukiyo</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-6 px-6 py-3 hover:bg-primary/25">
-          <p className="text-lg font-semibold">1</p>
-          <div>
-            <p className="text-lg font-semibold text-accent">Usagi Flap</p>
-            <p className="text-accent-foreground text-sm">Mitsukiyo</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-6 px-6 py-3 hover:bg-primary/25">
-          <p className="text-lg font-semibold">1</p>
-          <div>
-            <p className="text-lg font-semibold text-accent">Usagi Flap</p>
-            <p className="text-accent-foreground text-sm">Mitsukiyo</p>
-          </div>
-        </div>
-      </div>
+      <MusicList musicList={album.tracks} />
     </div>
   );
 };

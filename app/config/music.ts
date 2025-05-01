@@ -1,0 +1,16 @@
+export const artistName = [
+  "mitsukiyo",
+  "karut",
+  "nor",
+  "aiobahn",
+  "emocosine",
+  "synthion",
+  "7mai",
+  "yuc'e",
+  "ariuei",
+  "hatsune miku",
+  "yui ogura",
+  "lee jin ah",
+  "kano",
+  "younha",
+];

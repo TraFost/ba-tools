@@ -18,18 +18,20 @@ interface MaintainerInfoProps {
 
 const authors = [
   {
-    name: "Galih Aditya D.",
+    name: "Galih Aditya",
     role: "Author",
+    image: "/mikaxd.jpg",
     social: {
       instagram: "https://www.instagram.com/yagalihadit/",
       linkedin: "https://www.linkedin.com/in/galih-aditya-8914a6216/",
       github: "https://github.com/samsulpanjul",
-      email: "mailto:galih@example.com",
+      email: "mailto:galih.aditya227@gmail.com",
     },
   },
   {
     name: "Rahman Nurudin",
     role: "Core Maintainer",
+    image: "/icon.png",
     social: {
       instagram: "https://www.instagram.com/rahmannrdn/",
       linkedin: "https://www.linkedin.com/in/rahmannrdn/",
@@ -62,7 +64,7 @@ const MaintainerInfo: FC<MaintainerInfoProps> = ({ triggerClassName }) => {
             <div key={author.name} className="flex flex-col items-center gap-3">
               <div className="relative w-20 h-20 overflow-hidden rounded-full border-2 border-primary">
                 <Image
-                  src="/icon.png"
+                  src={author.image}
                   alt={`${author.name} avatar`}
                   fill
                   className="object-cover"
@@ -117,7 +119,7 @@ const MaintainerInfo: FC<MaintainerInfoProps> = ({ triggerClassName }) => {
             <br />
             <Link
               href="https://github.com/TraFost/ba-tools"
-              className="text-primary hover:underline"
+              className="text-secondary-foreground hover:underline"
               target="_blank"
             >
               View this project on GitHub

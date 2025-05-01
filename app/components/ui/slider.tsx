@@ -53,4 +53,33 @@ function Slider({
   );
 }
 
-export { Slider };
+interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
+  thumbClassName?: string;
+}
+
+const CustomSlider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, SliderProps>(
+  ({ className, thumbClassName, ...props }, ref) => (
+    <SliderPrimitive.Root
+      ref={ref}
+      className={cn("relative flex w-full touch-none select-none items-center", className)}
+      {...props}
+      data-slot="slider"
+    >
+      <SliderPrimitive.Track
+        className="relative h-1 w-full grow overflow-hidden rounded-full bg-muted"
+        data-slot="slider-track"
+      >
+        <SliderPrimitive.Range className="absolute h-full bg-primary" data-slot="slider-range" />
+      </SliderPrimitive.Track>
+      <SliderPrimitive.Thumb
+        data-slot="slider-thumb"
+        className={cn(
+          "block h-4 w-4 rounded-full bg-primary ring-offset-background transition-opacity focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+          thumbClassName,
+        )}
+      />
+    </SliderPrimitive.Root>
+  ),
+);
+
+export { Slider, CustomSlider };

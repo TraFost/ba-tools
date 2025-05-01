@@ -7,6 +7,10 @@ export const paths = {
     getHref: () => "/sticker",
   },
 
+  music: {
+    getHref: () => "/music",
+  },
+
   auth: {
     register: {
       getHref: (redirectTo?: string | null | undefined) =>
