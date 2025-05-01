@@ -16,9 +16,9 @@ const MusicPage = async () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div>
+      <section>
         <div className="flex justify-between items-center mb-2">
-          <p className="text-2xl lg:text-4xl font-bold">Artists</p>
+          <h2 className="text-2xl lg:text-4xl font-bold">Artists</h2>
           <Link
             href="/music/artists"
             className="text-accent-foreground font-semibold text-lg hover:underline"
@@ -27,10 +27,10 @@ const MusicPage = async () => {
           </Link>
         </div>
         <CarouselMusic albums={albums} />
-      </div>
-      <div>
+      </section>
+      <section>
         <div className="flex justify-between items-center mb-2">
-          <p className="text-2xl lg:text-4xl font-bold">Musics</p>
+          <h2 className="text-2xl lg:text-4xl font-bold">Musics</h2>
           <Link
             href="/music/soundtrack"
             className="text-accent-foreground font-semibold text-lg hover:underline"
@@ -41,10 +41,10 @@ const MusicPage = async () => {
         {musics.map((music, index) => (
           <TrackItem key={music.id} musicList={musics} index={index} music={music} />
         ))}
-      </div>
-      <div>
+      </section>
+      <section>
         <div className="flex justify-between items-center mb-2">
-          <p className="text-2xl lg:text-4xl font-bold">Students</p>
+          <h2 className="text-2xl lg:text-4xl font-bold">Students</h2>
           <Link
             href="/music/students"
             className="text-accent-foreground font-semibold text-lg hover:underline"
@@ -57,9 +57,9 @@ const MusicPage = async () => {
             <StudentItem key={student.id} student={student} />
           ))}
         </div>
-      </div>
-      <div>
-        <p className="text-2xl lg:text-4xl font-bold mb-2">other playlists</p>
+      </section>
+      <section>
+        <h2 className="text-2xl lg:text-4xl font-bold mb-2">other playlists</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 lg:gap-4">
           {albums.map(
             (album: IAlbum) =>
@@ -89,7 +89,7 @@ const MusicPage = async () => {
               ),
           )}
         </div>
-      </div>
+      </section>
     </div>
   );
 };
