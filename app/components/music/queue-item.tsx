@@ -41,37 +41,40 @@ const QueueItem: FC<Props> = (props) => {
         <p className="font-bold text-lg line-clamp-1">{title}</p>
         <p className="font-semibold line-clamp-1">{artist}</p>
       </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <div className="hover:bg-black/10 rounded-full p-1.5">
-            <EllipsisIcon />
-          </div>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="font-semibold text-accent bg-white rounded-lg shadow-lg p-4">
-          <DropdownMenuItem
-            onClick={(e) => {
-              e.stopPropagation();
-              if (queue.length === 1) return;
-              handleRemove();
-            }}
-          >
-            <Trash2Icon />
-            <span>Remove from queue</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-            <DownloadIcon />
-            <span>Download music</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild onClick={(e) => e.stopPropagation()}>
-            <Link
-              href={`/music/${artistName.includes(artists[0].toLowerCase()) ? artists[0].toLowerCase().replaceAll(" ", "-") : "soundtrack"}`}
+      <div className="flex items-center gap-2 shrink-0">
+        <p className="text-sm font-semibold text-accent-foreground line-clamp-1">{music.id}</p>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div className="hover:bg-black/10 rounded-full p-1.5">
+              <EllipsisIcon />
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="font-semibold text-accent bg-white rounded-lg shadow-lg p-4">
+            <DropdownMenuItem
+              onClick={(e) => {
+                e.stopPropagation();
+                if (queue.length === 1) return;
+                handleRemove();
+              }}
             >
-              <UserRoundIcon />
-              <span>Go to composer</span>
-            </Link>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+              <Trash2Icon />
+              <span>Remove from queue</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
+              <DownloadIcon />
+              <span>Download music</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild onClick={(e) => e.stopPropagation()}>
+              <Link
+                href={`/music/${artistName.includes(artists[0].toLowerCase()) ? artists[0].toLowerCase().replaceAll(" ", "-") : "soundtrack"}`}
+              >
+                <UserRoundIcon />
+                <span>Go to composer</span>
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </button>
   );
 };

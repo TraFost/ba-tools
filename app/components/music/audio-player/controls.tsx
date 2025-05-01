@@ -7,6 +7,7 @@ import {
   SkipBackIcon,
   SkipForwardIcon,
 } from "lucide-react";
+import { useEffect } from "react";
 
 const Controls = () => {
   const {
@@ -22,6 +23,23 @@ const Controls = () => {
     isRepeat,
     setIsRepeat,
   } = useMusicContext();
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName?.toLowerCase();
+      if (tag === "input" || tag === "textarea" || (e.target as HTMLElement)?.isContentEditable)
+        return;
+
+      if (e.code === "Space") {
+        e.preventDefault();
+        togglePlay();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isPlaying]);
 
   const togglePlay = () => {
     if (audioRef.current) {
@@ -85,11 +103,6 @@ const Controls = () => {
         type="button"
         className="p-2 cursor-pointer rounded-full bg-primary hover:bg-primary/75 transition-colors duration-200 ease-in-out"
         onClick={togglePlay}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            togglePlay();
-          }
-        }}
       >
         {isPlaying ? <PauseIcon fill="#33445c" /> : <PlayIcon fill="#33445c" />}
       </button>

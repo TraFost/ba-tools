@@ -17,7 +17,11 @@ const ArtistsPage = async () => {
         >
           <AlbumImage
             music={album.tracks}
-            src={album.image ? album.image : "/Akane_(Bunny_Girl).png"}
+            src={
+              album.image
+                ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${album.image}`
+                : "/icon.png"
+            }
             alt={album.title}
             width={256}
             height={256}

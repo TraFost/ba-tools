@@ -7,14 +7,14 @@ import { MusicIcon } from "lucide-react";
 
 export const metadata = {
   title: "Blue Archive Tools - Music Archive",
-  description: "Tools for creating stickers using Blue Archive assets",
+  description: "Tools for listening to Blue Archive Soundtrack.",
   keywords: ["Blue Archive", "Blue Archive tools", "Music Archive", "Blue Archive music"],
   openGraph: {
     type: "website",
     title: "Blue Archive Tools - Music Archive",
-    description: "Tools for creating stickers using Blue Archive assets",
+    description: "Tools for listening to Blue Archive Soundtrack.",
     url: `${BASE_URL}${paths.music.getHref()}`,
-    images: [{ url: `${BASE_URL}/icon.png` }],
+    images: [{ url: `${BASE_URL}/ost.png` }],
   },
 };
 

@@ -1,6 +1,13 @@
 "use client";
 
-import { PlayIcon, EllipsisIcon, DownloadIcon, ListMusicIcon, UserRoundIcon } from "lucide-react";
+import {
+  PlayIcon,
+  EllipsisIcon,
+  DownloadIcon,
+  ListMusicIcon,
+  UserRoundIcon,
+  ListCheckIcon,
+} from "lucide-react";
 import Image from "next/image";
 import {
   DropdownMenu,
@@ -13,6 +20,7 @@ import { Link } from "components/ui/link";
 import type { ITrack } from "@/app/type/music-type";
 import { artistName } from "@/app/config/music";
 import { playTrack } from "@/app/lib/music/playTrack";
+import { toast } from "sonner";
 
 interface Props {
   music: ITrack;
@@ -22,7 +30,8 @@ interface Props {
 
 const TrackItem = ({ music, index, musicList }: Props) => {
   const context = useMusicContext();
-  const { setQueue, currentTrack } = context;
+  const { setQueue, currentTrack, trackIndex, queue } = context;
+  const queueId = queue.map((item) => item.id);
 
   const isCurrent = currentTrack?.title === music.title;
 
@@ -44,7 +53,7 @@ const TrackItem = ({ music, index, musicList }: Props) => {
   return (
     <button
       type="button"
-      onClick={() => playTrack(context, music, index, musicList)}
+      onClick={() => playTrack(context, music, 0, musicList.slice(index))}
       className={`w-full text-accent cursor-pointer flex justify-between items-center rounded-xl px-3 py-3 hover:bg-primary/25 group ${isCurrent ? "bg-primary/25" : ""}`}
     >
       <div className="flex items-center gap-6">
@@ -69,13 +78,13 @@ const TrackItem = ({ music, index, musicList }: Props) => {
           </div>
           <div>
             <p className="lg:text-lg font-bold max-lg:line-clamp-1 text-left">{music.title}</p>
-            <p className="text-accent-foreground text-sm font-semibold w-fit text-left">
+            <p className="text-accent-foreground text-sm font-semibold w-fit text-left line-clamp-1">
               {music.artist}
             </p>
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 shrink-0">
         <p className="text-accent-foreground text-sm font-semibold w-fit text-left">{music.id}</p>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -87,11 +96,29 @@ const TrackItem = ({ music, index, musicList }: Props) => {
             <DropdownMenuItem
               onClick={(e) => {
                 e.stopPropagation();
-                setQueue((q) => (q.find((item) => item.src === music.src) ? q : [...q, music]));
+                setQueue((q) => {
+                  if (q.find((item) => item.src === music.src)) return q;
+
+                  const newQueue = [...q];
+                  newQueue.splice(trackIndex + 1, 0, music);
+                  toast.success("Added to queue", {
+                    description: `${music.title} - ${music.artist}`,
+                  });
+                  return newQueue;
+                });
               }}
             >
-              <ListMusicIcon />
-              <span>Add to queue</span>
+              {queueId.includes(music.id) ? (
+                <>
+                  <ListCheckIcon />
+                  <span>Added to queue</span>
+                </>
+              ) : (
+                <>
+                  <ListMusicIcon />
+                  <span>Add to queue</span>
+                </>
+              )}
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={(e) => {

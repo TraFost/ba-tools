@@ -53,6 +53,7 @@ const AsideContent: FC<Props> = (props) => {
           <div className="flex flex-col gap-0.5">
             {asideList[val].map((list: IAsideContent) => (
               <Link
+                data-close-drawer
                 key={list.text}
                 href={`${list.href}`}
                 className="hover:bg-white/50 px-4 py-2 cursor-pointer rounded-lg transition-colors ease-in-out duration-200 flex gap-2 items-center"
@@ -69,6 +70,7 @@ const AsideContent: FC<Props> = (props) => {
         <div className="flex flex-col gap-0.5">
           {albums.map((album) => (
             <Link
+              data-close-drawer
               key={album.id}
               href={`/music/${album.path}`}
               className="hover:bg-white/50 px-4 py-2 cursor-pointer rounded-lg transition-colors ease-in-out duration-200 flex gap-2 items-center"

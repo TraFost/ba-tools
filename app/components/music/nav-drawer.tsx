@@ -5,7 +5,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "components/ui/drawer";
-import type { FC, ReactNode } from "react";
+import { useState, type FC, type ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -15,11 +15,20 @@ interface Props {
 
 const NavDrawer: FC<Props> = (props) => {
   const { children, trigger, title } = props;
+  const [open, setOpen] = useState(false);
 
   return (
-    <Drawer>
+    <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>
-      <DrawerContent className="h-full">
+      <DrawerContent
+        onClick={(e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest("[data-close-drawer]")) {
+            setOpen(false);
+          }
+        }}
+        className="h-full"
+      >
         <DrawerHeader>
           <DrawerTitle>{title}</DrawerTitle>
         </DrawerHeader>

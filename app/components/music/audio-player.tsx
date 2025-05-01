@@ -97,12 +97,6 @@ const AudioPlayer = () => {
                 </Link>
               </span>
             ))}
-            {/* <Link
-              href={`/music/${artistName.includes(artistPath) ? artistPath : "/soundtrack"}`}
-              className="text-accent-foreground font-semibold hover:underline"
-            >
-              {currentTrack.artist}
-            </Link> */}
           </div>
         </div>
         <div className="flex flex-col items-center h-full gap-2">
