@@ -5,6 +5,7 @@ const nextConfig = {
   },
   reactStrictMode: false,
   images: {
+    unoptimized: false,
     remotePatterns: [
       {
         protocol: "https",
@@ -13,6 +14,6 @@ const nextConfig = {
       },
     ],
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
