@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
 import { Link } from "components/ui/link";
-import { Disc3Icon, MicVocalIcon, MusicIcon, UsersIcon } from "lucide-react";
+import { AudioLinesIcon, Disc3Icon, MicVocalIcon, MusicIcon, UsersIcon } from "lucide-react";
 import type { IAlbum } from "@/app/type/music-type";
 import Image from "next/image";
 
@@ -32,6 +32,11 @@ const asideList = {
       icon: <MicVocalIcon size={20} />,
       text: "Artists",
       href: "/music/artists",
+    },
+    {
+      icon: <AudioLinesIcon size={20} />,
+      text: "OST Volumes",
+      href: "/music/volumes",
     },
     {
       icon: <UsersIcon size={20} />,

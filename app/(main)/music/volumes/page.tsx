@@ -1,14 +1,15 @@
-import AlbumImage from "components/music/album-image";
-import { Link } from "components/ui/link";
+import AlbumImage from "@/app/components/music/album-image";
+import { Link } from "@/app/components/ui/link";
 import { getAlbumsBySection } from "@/app/lib/fetcher/getAlbum";
 import type { IAlbum } from "@/app/type/music-type";
+import React from "react";
 
-const ArtistsPage = async () => {
-  const albums = await getAlbumsBySection("artist");
+const VolumesPage = async () => {
+  const albums = await getAlbumsBySection("ost volume");
 
   return (
     <div>
-      <h2 className="text-4xl font-bold mb-4">Artist</h2>
+      <h2 className="text-4xl font-bold mb-4">Blue Archive Original Soundtrack Volume</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 lg:gap-4">
         {albums.map((album: IAlbum) => (
           <Link
@@ -39,4 +40,4 @@ const ArtistsPage = async () => {
   );
 };
 
-export default ArtistsPage;
+export default VolumesPage;

@@ -1,6 +1,5 @@
 import type { ITrack } from "@/app/type/music-type";
 import { createClient } from "@/app/lib/supabase/server";
-import { artistName } from "@/app/config/music";
 import { sortTracksById } from "../music/sortTracks";
 
 export const getAlbums = async () => {
@@ -9,6 +8,7 @@ export const getAlbums = async () => {
   const { data: albums } = await supabase
     .from("albums")
     .select("*, album_tracks(musics(*))")
+    .order("section", { ascending: true })
     .order("id", { ascending: true });
 
   const result = albums.map((album) => ({
@@ -34,16 +34,14 @@ export const getAlbumByTitle = async (title: string) => {
   };
 };
 
-export const getAlbumByArtist = async () => {
+export const getAlbumsBySection = async (section: string) => {
   const supabase = await createClient();
-
-  const filter = artistName.map((name) => `title.ilike.%${name}%`).join(",");
 
   const { data: albums } = await supabase
     .from("albums")
     .select("*, album_tracks(musics(*))")
     .order("id", { ascending: true })
-    .or(filter);
+    .eq("section", section);
 
   return albums.map((album) => ({
     ...album,

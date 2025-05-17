@@ -12,4 +12,5 @@ export interface IAlbum {
   image: string;
   tracks: ITrack[];
   path: string;
+  section: string;
 }

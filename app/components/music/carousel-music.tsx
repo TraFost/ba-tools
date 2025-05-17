@@ -11,21 +11,21 @@ import {
 import { Link } from "components/ui/link";
 import AlbumImage from "components/music/album-image";
 import type { IAlbum } from "@/app/type/music-type";
-import { artistName } from "@/app/config/music";
 
 interface Props {
   albums: IAlbum[];
+  section: string;
 }
 
 const CarouselMusic: FC<Props> = (props) => {
-  const { albums } = props;
+  const { albums, section } = props;
 
   return (
     <Carousel className="mx-14">
       <CarouselContent>
         {albums.map(
           (album: IAlbum) =>
-            artistName.includes(album.title.toLowerCase()) && (
+            album.section === section && (
               <CarouselItem
                 key={album.id}
                 className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5"

@@ -5,7 +5,6 @@ import StudentItem from "components/music/student/student-item";
 import TrackItem from "components/music/track-item";
 import { getAlbums } from "@/app/lib/fetcher/getAlbum";
 import type { IAlbum } from "@/app/type/music-type";
-import { artistName } from "@/app/config/music";
 import { getSomeMusics } from "@/app/lib/fetcher/getMusic";
 import { getSomeStudents } from "@/app/lib/fetcher/getStudent";
 
@@ -26,7 +25,7 @@ const MusicPage = async () => {
             See all artists
           </Link>
         </div>
-        <CarouselMusic albums={albums} />
+        <CarouselMusic albums={albums} section="artist" />
       </section>
       <section>
         <div className="flex justify-between items-center mb-2">
@@ -41,6 +40,18 @@ const MusicPage = async () => {
         {musics.map((music, index) => (
           <TrackItem key={music.id} musicList={musics} index={index} music={music} />
         ))}
+      </section>
+      <section>
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-2xl lg:text-4xl font-bold">OST Volume</h2>
+          <Link
+            href="/music/volumes"
+            className="text-accent-foreground font-semibold text-lg hover:underline"
+          >
+            See all OST volume
+          </Link>
+        </div>
+        <CarouselMusic albums={albums} section="ost volume" />
       </section>
       <section>
         <div className="flex justify-between items-center mb-2">
@@ -63,7 +74,7 @@ const MusicPage = async () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 lg:gap-4">
           {albums.map(
             (album: IAlbum) =>
-              !artistName.includes(album.title.toLowerCase()) && (
+              album.section === "other" && (
                 <Link
                   href={`/music/${album.path}`}
                   key={album.id}
