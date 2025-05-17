@@ -48,6 +48,9 @@ const TrackItem = ({ music, index, musicList }: Props) => {
     a.click();
     a.remove();
     URL.revokeObjectURL(blobUrl);
+    toast.success("Success download!", {
+      description: `${music.artist} - ${music.title}`,
+    });
   };
 
   return (

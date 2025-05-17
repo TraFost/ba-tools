@@ -9,7 +9,7 @@ export const CommonProviders = () => {
         unstyled: true,
         classNames: {
           toast:
-            "font-bold w-[350px] text-[#33445c] bg-secondary border border-gray-200 shadow-md flex items-center gap-2 px-4 py-2 rounded-xl",
+            "font-bold text-[#33445c] bg-secondary border border-gray-200 shadow-md flex items-center gap-4 px-4 py-2 rounded-xl",
           description: "text-sm font-semibold",
         },
       }}

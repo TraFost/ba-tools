@@ -1,5 +1,6 @@
 import AlbumImage from "components/music/album-image";
 import MusicList from "components/music/music-list";
+import AlbumDropdown from "components/music/album-dropdown";
 import { getMusics } from "@/app/lib/fetcher/getMusic";
 
 const SoundtrackPage = async () => {
@@ -22,7 +23,10 @@ const SoundtrackPage = async () => {
         </picture>
         <div className="flex flex-col justify-end gap-1 lg:gap-3">
           <p className="text-accent-foreground font-semibold">Playlist</p>
-          <p className="capitalize text-4xl font-bold text-accent">Blue Archive Soundtracks</p>
+          <div className="flex gap-2">
+            <p className="capitalize text-4xl font-bold text-accent">Blue Archive Soundtracks</p>
+            <AlbumDropdown title="Blue Archive Soundtracks" tracks={tracks} />
+          </div>
           <p className="text-accent-foreground font-semibold text-lg">{tracks.length} tracks</p>
         </div>
       </div>
