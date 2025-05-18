@@ -82,7 +82,7 @@ const MusicPage = async () => {
                   draggable={false}
                 >
                   <AlbumImage
-                    music={album.tracks}
+                    tracks={album.tracks}
                     src={
                       album.image
                         ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${album.image}`

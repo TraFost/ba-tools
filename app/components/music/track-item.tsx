@@ -30,7 +30,7 @@ interface Props {
 
 const TrackItem = ({ music, index, musicList }: Props) => {
   const context = useMusicContext();
-  const { setQueue, currentTrack, trackIndex, queue } = context;
+  const { setQueue, currentTrack, trackIndex, queue, isShuffle } = context;
   const queueId = queue.map((item) => item.id);
 
   const isCurrent = currentTrack?.title === music.title;
@@ -56,7 +56,17 @@ const TrackItem = ({ music, index, musicList }: Props) => {
   return (
     <button
       type="button"
-      onClick={() => playTrack(context, music, 0, musicList.slice(index))}
+      onClick={() => {
+        if (isShuffle) {
+          for (let i = musicList.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [musicList[i], musicList[j]] = [musicList[j], musicList[i]];
+          }
+          playTrack(context, music, index, musicList);
+        } else {
+          playTrack(context, music, index, musicList);
+        }
+      }}
       className={`w-full text-accent cursor-pointer flex justify-between items-center rounded-xl px-3 py-3 hover:bg-primary/25 group ${isCurrent ? "bg-primary/25" : ""}`}
     >
       <div className="flex items-center gap-6">

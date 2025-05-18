@@ -20,7 +20,7 @@ const AlbumPage = async ({
       <div className="flex max-lg:flex-col gap-4">
         <picture className="w-full max-w-52 max-lg:mx-auto">
           <AlbumImage
-            music={album.tracks}
+            tracks={album.tracks}
             src={
               album.image
                 ? `https://jyxwxdxjdshypymisxeo.supabase.co/storage/v1/object/public/music/images/${album.image}`

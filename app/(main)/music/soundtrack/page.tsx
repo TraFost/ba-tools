@@ -13,7 +13,7 @@ const SoundtrackPage = async () => {
       <div className="flex max-lg:flex-col gap-4">
         <picture className="w-full max-w-52 max-lg:mx-auto">
           <AlbumImage
-            music={tracks}
+            tracks={tracks}
             src="/ost.jpg"
             alt="Akane"
             width={720}

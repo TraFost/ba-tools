@@ -8,6 +8,7 @@ import {
   SkipForwardIcon,
 } from "lucide-react";
 import { useEffect } from "react";
+import { sortTracksById } from "@/app/lib/music/sortTracks";
 
 const Controls = () => {
   const {
@@ -17,6 +18,7 @@ const Controls = () => {
     isPlaying,
     setIsPlaying,
     queue,
+    setQueue,
     trackIndex,
     isShuffle,
     setIsShuffle,
@@ -53,16 +55,32 @@ const Controls = () => {
     }
   };
 
+  const handleShuffle = () => {
+    setIsShuffle((prev) => {
+      const newValShuffle = !prev;
+      if (newValShuffle) {
+        setQueue((prev) => {
+          const shuffled = [...prev];
+          for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+          }
+          return shuffled;
+        });
+      } else {
+        setQueue((prev) => sortTracksById(prev));
+      }
+
+      return newValShuffle;
+    });
+  };
+
   const handleNext = () => {
     setTrackIndex((prev) => {
       const currentQueue = queue;
       if (currentQueue.length === 0) return prev;
 
-      const newIndex = isShuffle
-        ? Math.floor(Math.random() * currentQueue.length)
-        : prev >= currentQueue.length - 1
-          ? 0
-          : prev + 1;
+      const newIndex = prev >= currentQueue.length - 1 ? 0 : prev + 1;
 
       const nextTrack = currentQueue[newIndex];
       setCurrentTrack(nextTrack);
@@ -72,11 +90,7 @@ const Controls = () => {
 
   const handlePrev = () => {
     setTrackIndex((prev) => {
-      const newIndex = isShuffle
-        ? Math.floor(Math.random() * queue.length)
-        : prev === 0
-          ? queue.length - 1
-          : prev - 1;
+      const newIndex = prev === 0 ? queue.length - 1 : prev - 1;
       setCurrentTrack(queue[newIndex]);
       return newIndex;
     });
@@ -87,7 +101,7 @@ const Controls = () => {
       <button
         type="button"
         className={`p-2 cursor-pointer rounded-lg hover:bg-accent-foreground/25 transition-colors duration-200 ease-in-out ${isShuffle ? "bg-accent-foreground/25" : ""}`}
-        onClick={() => setIsShuffle((prev) => !prev)}
+        onClick={handleShuffle}
       >
         <ShuffleIcon />
       </button>

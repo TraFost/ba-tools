@@ -13,13 +13,15 @@ interface Props {
   width: number;
   height: number;
   isVisible: boolean;
-  music: ITrack[];
+  tracks: ITrack[];
 }
 
 const AlbumImage: FC<Props> = (props) => {
-  const { src, alt, width, height, isVisible, music } = props;
+  const { src, alt, width, height, isVisible, tracks } = props;
 
   const context = useMusicContext();
+
+  const { isShuffle } = context;
 
   return (
     <div className="overflow-hidden rounded-lg relative w-fit max-lg:mx-auto">
@@ -41,7 +43,15 @@ const AlbumImage: FC<Props> = (props) => {
         onClick={(e) => {
           e.stopPropagation();
           e.nativeEvent.preventDefault();
-          playTrack(context, music[0], 0, music);
+          if (isShuffle) {
+            for (let i = tracks.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [tracks[i], tracks[j]] = [tracks[j], tracks[i]];
+            }
+            playTrack(context, tracks[0], 0, tracks);
+          } else {
+            playTrack(context, tracks[0], 0, tracks);
+          }
         }}
       >
         <PlayIcon fill="#33445c" />
