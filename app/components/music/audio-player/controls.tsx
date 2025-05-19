@@ -13,13 +13,14 @@ import { sortTracksById } from "@/app/lib/music/sortTracks";
 const Controls = () => {
   const {
     audioRef,
+    trackIndex,
     setTrackIndex,
+    currentTrack,
     setCurrentTrack,
     isPlaying,
     setIsPlaying,
     queue,
     setQueue,
-    trackIndex,
     isShuffle,
     setIsShuffle,
     isRepeat,
@@ -56,23 +57,25 @@ const Controls = () => {
   };
 
   const handleShuffle = () => {
-    setIsShuffle((prev) => {
-      const newValShuffle = !prev;
-      if (newValShuffle) {
-        setQueue((prev) => {
-          const shuffled = [...prev];
-          for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-          }
-          return shuffled;
-        });
-      } else {
-        setQueue((prev) => sortTracksById(prev));
-      }
+    const newValShuffle = !isShuffle;
+    setIsShuffle(newValShuffle);
 
-      return newValShuffle;
-    });
+    if (newValShuffle) {
+      const sliced = queue.filter((track) => track.id !== currentTrack.id);
+      for (let i = sliced.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [sliced[i], sliced[j]] = [sliced[j], sliced[i]];
+      }
+      const newQueue = [...sliced];
+      newQueue.splice(trackIndex, 0, currentTrack);
+      setQueue(newQueue);
+    } else {
+      const sorted = sortTracksById(queue);
+      setQueue(sorted);
+
+      const index = sorted.findIndex((track) => track.id === currentTrack.id);
+      setTrackIndex(index !== -1 ? index : 0);
+    }
   };
 
   const handleNext = () => {

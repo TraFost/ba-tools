@@ -58,11 +58,15 @@ const TrackItem = ({ music, index, musicList }: Props) => {
       type="button"
       onClick={() => {
         if (isShuffle) {
-          for (let i = musicList.length - 1; i > 0; i--) {
+          const sliced = musicList.filter((track) => track.id !== music.id);
+          for (let i = sliced.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [musicList[i], musicList[j]] = [musicList[j], musicList[i]];
+            [sliced[i], sliced[j]] = [sliced[j], sliced[i]];
           }
-          playTrack(context, music, index, musicList);
+          const newQueue = [...sliced];
+          newQueue.splice(index, 0, music);
+          setQueue(newQueue);
+          playTrack(context, music, index, newQueue);
         } else {
           playTrack(context, music, index, musicList);
         }

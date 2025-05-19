@@ -57,7 +57,6 @@ const MusicWrapper: FC<Props> = (props) => {
       {/* biome-ignore lint/a11y/useMediaCaption: <explanation> */}
       <audio
         preload="none"
-        key={currentTrack.src}
         src={currentTrack.src}
         ref={audioRef}
         onEnded={() => {

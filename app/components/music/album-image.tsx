@@ -21,7 +21,7 @@ const AlbumImage: FC<Props> = (props) => {
 
   const context = useMusicContext();
 
-  const { isShuffle } = context;
+  const { isShuffle, setQueue } = context;
 
   return (
     <div className="overflow-hidden rounded-lg relative w-fit max-lg:mx-auto">
@@ -44,11 +44,14 @@ const AlbumImage: FC<Props> = (props) => {
           e.stopPropagation();
           e.nativeEvent.preventDefault();
           if (isShuffle) {
-            for (let i = tracks.length - 1; i > 0; i--) {
+            const shuffled = [...tracks];
+            for (let i = shuffled.length - 1; i > 0; i--) {
               const j = Math.floor(Math.random() * (i + 1));
-              [tracks[i], tracks[j]] = [tracks[j], tracks[i]];
+              [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
             }
-            playTrack(context, tracks[0], 0, tracks);
+
+            setQueue(shuffled);
+            playTrack(context, shuffled[0], 0, shuffled);
           } else {
             playTrack(context, tracks[0], 0, tracks);
           }
